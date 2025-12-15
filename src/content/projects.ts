@@ -3,10 +3,16 @@ export type Project = {
   title: string
   summary: string
   tags: string[]
-  href?: string
+
+  problem: string
+  solution: string
+  highlights: string[]
+
+  repoUrl?: string
+  demoUrl?: string
+
   featured?: boolean
 }
-
 export const projects: Project[] = [
   {
     slug: "automated-mlops",
@@ -14,20 +20,20 @@ export const projects: Project[] = [
     summary:
       "An end-to-end MLOps pipeline automating training, versioning, and deployment of machine learning models.",
     tags: ["Python", "MLOps", "Automation", "ML Systems"],
+
+    problem:
+      "Deploying and maintaining machine learning models manually leads to errors, inconsistent environments, and slow iteration cycles.",
+    solution:
+      "I designed and implemented an automated MLOps pipeline that handles model training, versioning, deployment, and monitoring with minimal manual intervention.",
+    highlights: [
+      "End-to-end automated training and deployment",
+      "Reproducible experiments and model versioning",
+      "Clear separation between training, serving, and infrastructure",
+    ],
+
+    repoUrl: "https://github.com/yourname/automated-mlops",
     featured: true,
   },
-  {
-    slug: "python-learning-platform",
-    title: "Interactive Python Learning Platform",
-    summary:
-      "A web-based platform that allows beginners to write and execute Python code in a guided environment.",
-    tags: ["Python", "Web", "Education"],
-  },
-  {
-    slug: "snake-ai",
-    title: "Snake AI (TensorFlow → PyTorch)",
-    summary:
-      "Reimplemented a machine learning-based Snake agent by translating a TensorFlow model to PyTorch.",
-    tags: ["PyTorch", "TensorFlow", "Reinforcement Learning"],
-  },
+
+  // other projects stay short for now
 ]
