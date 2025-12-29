@@ -7,7 +7,15 @@ type Props = {
 
 export function ProjectCard({ project }: Props) {
   return (
-    <article className="rounded-lg border border-border p-6 hover:border-primary/40 transition-colors">
+    <article className="
+      rounded-lg
+      border border-border
+      p-6
+      transition-all
+      hover:border-primary/40
+      hover:-translate-y-1
+      hover:shadow-lg
+    ">
       <div className="space-y-3">
         <h3 className="text-xl font-medium">
           {project.title}
@@ -31,7 +39,15 @@ export function ProjectCard({ project }: Props) {
         <div className="pt-4">
           <Link
             href={`/projects/${project.slug}`}
-            className="text-sm text-primary hover:underline"
+            className="
+              text-primary
+              hover:underline
+              focus-visible:outline-none
+              focus-visible:ring-2
+              focus-visible:ring-primary
+              focus-visible:ring-offset-2
+              ring-offset-background
+            "
           >
             View details →
           </Link>

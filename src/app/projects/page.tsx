@@ -1,5 +1,12 @@
 import { projects } from "@/content/projects"
-import { ProjectsGrid } from "@/components/sections/projectsgrid"
+import { ProjectsGrid } from "@/components/sections/ProjectsGrid"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "A selection of projects focused on applied AI, machine learning, and building reliable systems.",
+}
 
 export default function ProjectsPage() {
   return (
