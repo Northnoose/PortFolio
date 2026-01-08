@@ -1,18 +1,10 @@
-import { Project } from "@/content/projects"
-import { Reveal } from "@/components/motion/Reveal"
 import { ProjectCard } from "@/components/cards/ProjectCard"
 
-type Props = {
-  projects: Project[]
-}
-
-export function ProjectsGrid({ projects }: Props) {
+export function ProjectsGrid({ projects }: { projects: any[] }) {
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-8 md:grid-cols-2">
       {projects.map((project) => (
-        <Reveal key={project.slug}>
-          <ProjectCard project={project} />
-        </Reveal>
+        <ProjectCard key={project.slug} project={project} />
       ))}
     </div>
   )

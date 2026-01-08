@@ -1,34 +1,80 @@
 @import "tailwindcss";
 
-html,
-body {
-  height: 100%;
-}
+/* ================================
+   Core design tokens
+   ================================ */
 
-body {
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
-}
-
-/* Design tokens (Tailwind reads these via tailwind.config.ts) */
 :root {
-  --background: 0 0% 100%;
-  --foreground: 222 47% 11%;
+  /* Base surfaces */
+  --bg-page: 222 47% 5%;
+  --bg-panel: 222 32% 8%;
+  --bg-elevated: 222 30% 10%;
 
-  --muted: 215 20% 65%;
-  --border: 220 13% 91%;
+  /* Text */
+  --text-primary: 210 40% 96%;
+  --text-secondary: 215 20% 72%;
+  --text-muted: 215 14% 55%;
 
-  --primary: 262 83% 58%;
-  --primary-foreground: 210 40% 98%;
+  /* Accent (used sparingly) */
+  --accent: 217 91% 60%;
+
+  /* Borders */
+  --border-soft: 220 18% 18%;
+  --border-strong: 220 18% 24%;
+
+  /* Radius */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+
+  /* Shadows (very subtle) */
+  --shadow-soft: 0 1px 0 hsl(0 0% 100% / 0.03);
+  --shadow-panel: 0 8px 30px hsl(0 0% 0% / 0.25);
+
+  /* Typography rhythm */
+  --leading-tight: 1.15;
+  --leading-normal: 1.6;
 }
 
-.dark {
-  --background: 222 47% 11%;
-  --foreground: 210 40% 98%;
+/* ================================
+   Global element defaults
+   ================================ */
 
-  --muted: 215 20% 65%;
-  --border: 215 25% 27%;
+html {
+  background-color: hsl(var(--bg-page));
+  color: hsl(var(--text-primary));
+}
 
-  --primary: 262 83% 68%;
-  --primary-foreground: 222 47% 11%;
+body {
+  font-feature-settings: "ss01", "ss02", "cv01";
+  line-height: var(--leading-normal);
+}
+
+/* Headings: tighter, editorial */
+h1, h2, h3 {
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+}
+
+/* Muted text helper */
+.text-muted {
+  color: hsl(var(--text-muted));
+}
+
+/* ================================
+   Subtle background effects
+   ================================ */
+
+.bg-noise {
+  position: relative;
+}
+
+.bg-noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("/noise.png");
+  opacity: 0.04;
+  mix-blend-mode: overlay;
 }

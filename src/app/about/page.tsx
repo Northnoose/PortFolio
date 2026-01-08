@@ -1,104 +1,60 @@
-import { Reveal } from "@/components/motion/Reveal"
+import { Container } from "@/components/ui/Container"
+import { Panel } from "@/components/ui/Panel"
 
 export default function AboutPage() {
   return (
-    <main className="pt-24 px-6">
-      <div className="mx-auto max-w-6xl space-y-20">
-        {/* Intro */}
-        <section className="max-w-3xl space-y-4">
-          <h1 className="text-4xl font-semibold tracking-tight">
-            About
-          </h1>
-          <p className="text-base text-foreground/80">
-            I’m a data science student finishing my bachelor’s degree, with a
-            strong interest in applied machine learning and how models behave
-            when they meet real systems.
-          </p>
-        </section>
-
-        {/* How I work */}
-        <Reveal>
-          <section className="max-w-3xl space-y-6">
-            <h2 className="text-2xl font-semibold">
-              How I work
-            </h2>
-
-            <p className="text-base text-foreground/80">
-              I enjoy working on projects where I can combine analytical
-              thinking with software engineering. Rather than focusing only on
-              model performance, I care about structure, reproducibility, and
-              maintainability.
-            </p>
-
-            <p className="text-base text-foreground/80">
-              Through my studies and projects, I’ve learned the importance of
-              clear boundaries between experimentation, implementation, and
-              deployment — especially in machine learning workflows.
-            </p>
-          </section>
-        </Reveal>
-
-        {/* Skills */}
-        <Reveal>
+    <main className="pt-40 pb-32">
+      <Container>
+        <div className="max-w-[760px] space-y-24">
+          {/* Intro */}
           <section className="space-y-6">
-            <h2 className="text-2xl font-semibold">
-              Skills & tools
-            </h2>
-
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-lg border border-border p-6">
-                <h3 className="text-xl font-medium">Languages</h3>
-                <ul className="mt-3 space-y-1 text-sm text-foreground/80">
-                  <li>Python (proficient)</li>
-                  <li>SQL (basic)</li>
-                  <li>HTML / CSS (basic)</li>
-                </ul>
-              </div>
-
-              <div className="rounded-lg border border-border p-6">
-                <h3 className="text-xl font-medium">Frameworks & tools</h3>
-                <ul className="mt-3 space-y-1 text-sm text-foreground/80">
-                  <li>Flask</li>
-                  <li>Git</li>
-                  <li>Basic frontend tooling</li>
-                </ul>
-              </div>
-
-              <div className="rounded-lg border border-border p-6">
-                <h3 className="text-xl font-medium">Areas of focus</h3>
-                <ul className="mt-3 space-y-1 text-sm text-foreground/80">
-                  <li>Machine learning fundamentals</li>
-                  <li>Automation and pipelines</li>
-                  <li>Data analysis and experimentation</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-        </Reveal>
-
-        {/* Background / Now */}
-        <Reveal>
-          <section className="max-w-3xl space-y-6">
-            <h2 className="text-2xl font-semibold">
-              Background
-            </h2>
-
-            <p className="text-base text-foreground/80">
-              I’m currently based in Frankfurt and finishing my bachelor’s
-              degree in Data Science at UiT Narvik. Alongside my studies, I work
-              in customer service while building technical projects in my own
-              time.
-            </p>
-
-            <p className="text-base text-foreground/80">
-              I’m looking for opportunities where I can continue developing my
-              skills in machine learning, data analysis, and software
-              development, and contribute to real-world projects while
-              learning from more experienced engineers.
+            <h1 className="text-4xl font-medium">
+              About
+            </h1>
+            <p className="text-lg text-text-secondary">
+              I’m a bachelor-level computer engineering / ML student with a strong
+              focus on building systems that are understandable, reproducible,
+              and robust over time.
             </p>
           </section>
-        </Reveal>
-      </div>
+
+          {/* Philosophy */}
+          <Panel className="p-10 space-y-4">
+            <h3 className="text-lg font-medium">
+              How I approach technical work
+            </h3>
+            <p className="text-text-secondary">
+              I prioritize clarity over cleverness, structure over speed, and
+              long-term maintainability over short-term results.
+            </p>
+          </Panel>
+
+          {/* Focus areas */}
+          <Panel className="p-10 space-y-4">
+            <h3 className="text-lg font-medium">
+              Current focus
+            </h3>
+            <ul className="list-disc pl-5 space-y-2 text-text-secondary">
+              <li>Machine learning systems & pipelines</li>
+              <li>Reproducible experimentation</li>
+              <li>Clean, readable frontend architecture</li>
+              <li>Bridging theory and practical implementation</li>
+            </ul>
+          </Panel>
+
+          {/* Positioning */}
+          <Panel className="p-10 space-y-4">
+            <h3 className="text-lg font-medium">
+              Positioning
+            </h3>
+            <p className="text-text-secondary">
+              I don’t position myself as a senior engineer. I position myself as
+              someone who learns fast, reasons carefully, and takes engineering
+              discipline seriously from day one.
+            </p>
+          </Panel>
+        </div>
+      </Container>
     </main>
   )
 }

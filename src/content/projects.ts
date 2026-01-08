@@ -15,7 +15,7 @@ export type Project = {
 }
 export const projects: Project[] = [
   {
-    slug: "automated-mlops",
+    slug: "academic-mlops-pipeline",
     title: "Automated MLOps Pipeline",
     summary:
       "An end-to-end MLOps pipeline automating training, versioning, and deployment of machine learning models.",
