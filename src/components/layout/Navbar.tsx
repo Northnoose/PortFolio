@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Container } from "@/components/ui/Container"
@@ -13,12 +12,7 @@ const links = [
 ]
 
 export function Navbar() {
-  const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-border-soft bg-bg-page/70 backdrop-blur">
