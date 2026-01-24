@@ -1,7 +1,9 @@
+'use client'
+
 import type { Metadata } from "next"
 import "./globals.css"
 import { Inter } from "next/font/google"
-import { LayoutClient } from "@/components/layout/LayoutClient"
+import { Navbar } from "@/components/layout/Navbar"
 import { site } from "@/lib/site"
 
 const inter = Inter({ subsets: ["latin"] })
