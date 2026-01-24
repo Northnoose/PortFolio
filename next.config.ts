@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  typescript: {
+    tsconfigPath: "./tsconfig.json",
+  },
+  experimental: {
+    optimizePackageImports: ["@tabler/icons-react"],
+  },
 };
 
 export default nextConfig;
