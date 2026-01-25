@@ -5,12 +5,13 @@ import { Tag } from "@/components/ui/Tag"
 import { caseStudies } from "@/content/caseStudies"
 import Link from "next/link"
 
-export default function CaseStudyDetailPage({
+export default async function CaseStudyDetailPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
-  const cs = caseStudies.find(c => c.slug === params.slug)
+  const { slug } = await params
+  const cs = caseStudies.find(c => c.slug === slug)
   if (!cs) notFound()
 
   return (
