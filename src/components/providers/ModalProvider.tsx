@@ -82,8 +82,9 @@ function GlobalModal({ isOpen, onClose, children }: GlobalModalProps) {
 
       {/* Modal Content */}
       <div
-        className="relative z-[10000] w-full max-w-3xl mx-4 bg-bg-page rounded-2xl max-h-[90vh] overflow-y-auto"
+        className="relative z-[10000] w-full max-w-3xl mx-4 rounded-2xl max-h-[90vh] overflow-y-auto"
         style={{
+          backgroundColor: 'rgb(13, 13, 13)',
           border: '1px solid rgba(255, 255, 255, 0.08)',
           boxShadow: `
             0 25px 50px -12px rgba(0, 0, 0, 0.6),
