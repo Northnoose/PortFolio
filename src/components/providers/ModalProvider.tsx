@@ -84,10 +84,12 @@ function GlobalModal({ isOpen, onClose, children }: GlobalModalProps) {
       <div
         className="relative z-[10000] w-full max-w-3xl mx-4 bg-bg-page rounded-2xl max-h-[90vh] overflow-y-auto"
         style={{
+          border: '1px solid rgba(255, 255, 255, 0.08)',
           boxShadow: `
             0 25px 50px -12px rgba(0, 0, 0, 0.6),
             0 10px 30px -8px rgba(0, 0, 0, 0.4),
-            inset 0 1px 0 0 rgba(255, 255, 255, 0.05)
+            inset 0 1px 1px 0 rgba(255, 255, 255, 0.08),
+            inset 0 -1px 1px 0 rgba(0, 0, 0, 0.2)
           `
         }}
         onClick={(e) => e.stopPropagation()}
