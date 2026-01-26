@@ -60,7 +60,7 @@ interface GlobalModalProps {
 function GlobalModal({ isOpen, onClose, children }: GlobalModalProps) {
   if (!isOpen) return null
 
-  const handleEscape = (e: KeyboardEvent) => {
+  const handleEscape = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Escape') {
       onClose()
     }
