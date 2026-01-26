@@ -15,7 +15,7 @@ export function Navbar() {
   const pathname = usePathname()
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-border-soft bg-bg-page/70 backdrop-blur">
+    <header className="fixed top-0 z-40 w-full border-b border-border-soft bg-bg-page/70 backdrop-blur">
       <Container>
         <nav className="flex h-16 items-center justify-between">
           <Link
