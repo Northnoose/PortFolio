@@ -10,15 +10,33 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-xl font-medium">Let's work together</h3>
             <p className="text-text-secondary max-w-[500px]">
-              I'm interested in ML systems roles where engineering discipline matters. If my approach resonates, let's talk.
+              Two collaborators building data-driven products and reliable ML systems. Reach out to either of us.
             </p>
             <div className="flex flex-col gap-3 pt-2">
-              <a
-                href={`mailto:${site.email}`}
-                className="inline-block text-text-secondary hover:text-text-primary transition-colors"
-              >
-                ✉ {site.email}
-              </a>
+              <div className="space-y-1">
+                <p className="text-sm font-medium text-text-primary">Steffen Nordnes</p>
+                <a
+                  href={`mailto:${site.email}`}
+                  className="inline-block text-text-secondary hover:text-text-primary transition-colors"
+                >
+                  ✉ {site.email}
+                </a>
+              </div>
+              <div className="space-y-1">
+                <p className="text-sm font-medium text-text-primary">Deivi Selenis</p>
+                <a
+                  href="mailto:deivi.selenis@gmail.com"
+                  className="inline-block text-text-secondary hover:text-text-primary transition-colors"
+                >
+                  ✉ deivi.selenis@gmail.com
+                </a>
+                <a
+                  href="tel:+4790820779"
+                  className="block text-text-secondary hover:text-text-primary transition-colors"
+                >
+                  ☎ +47 90820779
+                </a>
+              </div>
             </div>
           </div>
 

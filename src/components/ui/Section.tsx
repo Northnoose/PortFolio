@@ -2,13 +2,15 @@ export function Section({
   title,
   kicker,
   children,
+  id,
 }: {
   title: string
   kicker?: string
   children: React.ReactNode
+  id?: string
 }) {
   return (
-    <section className="space-y-8 py-20">
+    <section id={id} className="space-y-8 py-12 md:py-14">
       <header className="space-y-3">
         {kicker && (
           <p className="text-sm uppercase tracking-wide text-text-muted">

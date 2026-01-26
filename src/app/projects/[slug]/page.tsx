@@ -88,9 +88,9 @@ export default async function ProjectDetailPage({
                     href={project.demoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-text-primary hover:underline"
+                    className="inline-flex items-center justify-center px-4 py-2 rounded-md bg-text-primary text-bg-page text-sm font-medium hover:opacity-90 transition-colors"
                   >
-                    → Live Demo
+                    {project.demoLabel ?? "Live Demo"}
                   </a>
                 )}
               </div>

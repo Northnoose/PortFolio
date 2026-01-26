@@ -8,7 +8,6 @@ const links = [
   { href: "/", label: "Home" },
   { href: "/projects", label: "Projects" },
   { href: "/case-studies", label: "Case Studies" },
-  { href: "/about", label: "About" },
 ]
 
 export function Navbar() {
@@ -22,7 +21,8 @@ export function Navbar() {
             href="/"
             className="text-sm font-medium text-text-primary"
           >
-            Steffen Nordnes
+            <span className="md:hidden">Steffen & Deivi</span>
+            <span className="hidden md:inline">Steffen Nordnes & Deivi Selenis</span>
           </Link>
 
           <ul className="flex items-center gap-6 text-sm">

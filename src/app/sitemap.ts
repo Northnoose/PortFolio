@@ -7,7 +7,6 @@ export default function sitemap() {
     "",
     "/projects",
     "/case-studies",
-    "/about",
     "/experience",
   ]
 

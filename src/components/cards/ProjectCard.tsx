@@ -1,8 +1,9 @@
 import Link from "next/link"
 import { Panel } from "@/components/ui/Panel"
 import { Tag } from "@/components/ui/Tag"
+import { Project } from "@/content/projects"
 
-export function ProjectCard({ project }: { project: any }) {
+export function ProjectCard({ project }: { project: Project }) {
   return (
     <Panel className="p-6 space-y-4">
       <div className="space-y-2">

@@ -5,13 +5,15 @@ import { projects } from "@/content/projects"
 
 export default function ProjectsPage() {
   return (
-    <main className="pt-40">
+    <main className="pt-24 md:pt-28">
       <Container>
         <Section
           kicker="Work"
           title="Projects"
         >
-          <ProjectsGrid projects={projects} />
+          <div className="space-y-5">
+            <ProjectsGrid projects={projects} />
+          </div>
         </Section>
       </Container>
     </main>
