@@ -3,12 +3,14 @@
 import { Container } from "@/components/ui/Container"
 import { Section } from "@/components/ui/Section"
 import { Panel } from "@/components/ui/Panel"
-import { CaseStudyModal } from "@/components/sections/CaseStudyModal"
+import { CaseStudyContent } from "@/components/sections/CaseStudyContent"
 import { caseStudies, CaseStudy } from "@/content/caseStudies"
 import { useState, useEffect } from "react"
+import { useModal } from "@/components/providers/ModalProvider"
 
 export default function CaseStudiesPage() {
-  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null)
+  const { openModal, closeModal } = useModal()
+  const [selectedSlug, setSelectedSlug] = useState<string | null>(null)
 
   // Handle URL hash for deep linking
   useEffect(() => {
@@ -18,10 +20,14 @@ export default function CaseStudiesPage() {
         const slug = hash.split('=')[1]
         const cs = caseStudies.find(c => c.slug === slug)
         if (cs) {
-          setSelectedCaseStudy(cs)
+          setSelectedSlug(slug)
+          openModal(<CaseStudyContent caseStudy={cs} />, () => {
+            setSelectedSlug(null)
+            window.location.hash = ''
+          })
         }
       } else if (hash === '') {
-        setSelectedCaseStudy(null)
+        setSelectedSlug(null)
       }
     }
 
@@ -31,16 +37,15 @@ export default function CaseStudiesPage() {
     // Listen for hash changes
     window.addEventListener('hashchange', handleHashChange)
     return () => window.removeEventListener('hashchange', handleHashChange)
-  }, [])
+  }, [openModal])
 
   const openCaseStudy = (cs: CaseStudy) => {
-    setSelectedCaseStudy(cs)
+    setSelectedSlug(cs.slug)
     window.location.hash = `case-study=${cs.slug}`
-  }
-
-  const closeCaseStudy = () => {
-    setSelectedCaseStudy(null)
-    window.location.hash = ''
+    openModal(<CaseStudyContent caseStudy={cs} />, () => {
+      setSelectedSlug(null)
+      window.location.hash = ''
+    })
   }
 
   return (
@@ -73,13 +78,6 @@ export default function CaseStudiesPage() {
           </div>
         </Section>
       </Container>
-
-      {/* Modal */}
-      <CaseStudyModal
-        caseStudy={selectedCaseStudy}
-        isOpen={selectedCaseStudy !== null}
-        onClose={closeCaseStudy}
-      />
     </main>
   )
 }
