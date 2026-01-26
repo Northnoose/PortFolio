@@ -4,6 +4,7 @@ import { ProjectsGrid } from "@/components/sections/ProjectsGrid"
 import { Panel } from "@/components/ui/Panel"
 import { projects } from "@/content/projects"
 import Link from "next/link"
+import TextType from "@/components/ui/TextType"
 
 export default function HomePage() {
   // Show only featured projects on home page
@@ -15,9 +16,27 @@ export default function HomePage() {
       <section className="pt-40 pb-32">
         <Container>
           <div className="max-w-[720px] space-y-6">
-            <h1 className="text-4xl md:text-5xl font-medium">
-              ML systems that ship fast and stay reliable in production.
-            </h1>
+                        {/* Typing effect headline */}
+            <TextType
+              as="h1"
+              className="text-5xl md:text-6xl font-bold leading-tight"
+              text={[
+                "Hey! My name is Steffen",
+                "Hei! Jeg heter Steffen",
+                "Hola! Me llamo Steffen",
+                "Bonjour! Je m'appelle Steffen",
+                "Ciao! Mi chiamo Steffen",
+                "Hallo! Ich heiße Steffen",
+              ]}
+              typingSpeed={75}
+              deletingSpeed={50}
+              pauseDuration={3000}
+              showCursor
+              cursorCharacter="_"
+              cursorBlinkDuration={0.5}
+              variableSpeed={{ min: 60, max: 120 }}
+            />
+
             <p className="text-lg text-text-secondary">
               I reduced iteration time from 4 hours to 12 minutes. Built systems handling 2B+ daily events. Prevented $40k in bad predictions through monitoring. Specializing in reproducibility, automation, and thoughtful architecture.
             </p>
