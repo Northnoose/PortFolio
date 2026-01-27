@@ -15,7 +15,7 @@
   --text-secondary: 215 20% 72%;
   --text-muted: 215 14% 55%;
 
-  /* Accent (used sparingly) */
+  /* Accent */
   --accent: 217 91% 60%;
 
   /* Borders */
@@ -27,17 +27,17 @@
   --radius-md: 14px;
   --radius-lg: 18px;
 
-  /* Shadows (very subtle) */
+  /* Shadows */
   --shadow-soft: 0 1px 0 hsl(0 0% 100% / 0.03);
   --shadow-panel: 0 8px 30px hsl(0 0% 0% / 0.25);
 
-  /* Typography rhythm */
+  /* Typography */
   --leading-tight: 1.15;
   --leading-normal: 1.6;
 }
 
 /* ================================
-   Global element defaults
+   Global defaults
    ================================ */
 
 html {
@@ -50,31 +50,62 @@ body {
   line-height: var(--leading-normal);
 }
 
-/* Headings: tighter, editorial */
 h1, h2, h3 {
   line-height: var(--leading-tight);
   letter-spacing: -0.02em;
 }
 
-/* Muted text helper */
 .text-muted {
   color: hsl(var(--text-muted));
 }
 
 /* ================================
-   Subtle background effects
+   Subtle grain (optional, safe)
    ================================ */
 
 .bg-noise {
-  position: relative;
+  background-image:
+    linear-gradient(0deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 4px 4px;
+  opacity: 0.4;
 }
 
-.bg-noise::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: url("/noise.png");
-  opacity: 0.04;
-  mix-blend-mode: overlay;
+/* ================================
+   Particle animation (ONLY one)
+   ================================ */
+
+/*
+  Used by HeroLightOverlay particles.
+  Particles:
+  - fade in slowly
+  - drift immediately
+  - fade out smoothly
+  - respawn elsewhere via JS
+*/
+
+@keyframes particle-drift {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  60% {
+    opacity: 0.6;
+  }
+  85% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy));
+    opacity: 0;
+  }
+}
+
+.animate-particle {
+  animation-name: particle-drift;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both; /* IMPORTANT */
 }
