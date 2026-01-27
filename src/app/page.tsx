@@ -190,7 +190,7 @@ export default function HomePage() {
          ====================================================== */}
       <Container>
         <Section kicker="Selected work" title="Projects">
-          <ProjectsGrid projects={featuredProjects} />
+          <FeaturedProjects projects={featuredProjects} />
         </Section>
       </Container>
 
