@@ -1,9 +1,9 @@
 import { Container } from "@/components/ui/Container"
 import { Section } from "@/components/ui/Section"
-import { ProjectsGrid } from "@/components/sections/ProjectsGrid"
 import { Panel } from "@/components/ui/Panel"
 import { projects } from "@/content/projects"
 import Link from "next/link"
+import FeaturedProjects from "@/components/sections/FeaturedProjects"
 import TextType from "@/components/ui/TextType"
 import { BaseBackground } from "@/components/ui/BaseBackground"
 import { HeroLightOverlay } from "@/components/ui/HeroLightOverlay"
@@ -190,7 +190,7 @@ export default function HomePage() {
          ====================================================== */}
       <Container>
         <Section kicker="Selected work" title="Projects">
-          <ProjectsGrid projects={featuredProjects} />
+          <FeaturedProjects projects={featuredProjects} />
         </Section>
       </Container>
 
