@@ -1,123 +1,209 @@
+"use client"
+
+import { useState } from "react"
 import { BaseBackground } from "@/components/ui/BaseBackground"
 import { Container } from "@/components/ui/Container"
 import { Panel } from "@/components/ui/Panel"
 
+import {
+  Brain,
+  Cpu,
+  Layers,
+  Sparkles,
+  CheckCircle
+} from "lucide-react"
+
+const tabs = ["Vision", "Expertise", "Focus"] as const
+type Tab = typeof tabs[number]
+
 export default function AboutPage() {
+  const [active, setActive] = useState<Tab>("Vision")
+
   return (
-    <main className="pt-40 pb-32">
+    <main className="relative pt-32 pb-32 overflow-hidden">
       <BaseBackground />
+
       <Container>
-        <div className="max-w-[760px] space-y-24">
-          {/* Intro */}
-          <section className="space-y-6">
-            <h1 className="text-4xl font-medium">
-              About
-            </h1>
-            <p className="text-lg text-text-secondary">
-              I specialize in building production ML systems that scale. I've reduced ML iteration cycles from hours to minutes, prevented silent model failures, and shipped reproducible pipelines handling 2B+ events daily.
-            </p>
-          </section>
+        <div className="space-y-12">
 
-          {/* Education */}
-          <Panel className="p-10 space-y-4">
-            <h3 className="text-lg font-medium">
-              Education
-            </h3>
-            <div className="space-y-3 text-text-secondary">
-              <div>
-                <p className="font-medium text-text-primary">Bachelor of Science in Computer Science & Machine Learning</p>
-                <p className="text-sm">University of Oslo (UiO) • Expected June 2025</p>
-                <p className="text-sm">GPA: 3.8/4.0 • Relevant coursework: Distributed Systems, Machine Learning, Data Engineering, Systems Design</p>
+          {/* ======================================================
+              HEADER CARD
+          ====================================================== */}
+          <Panel className="p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+            <div className="flex items-center gap-5">
+              <div className="
+                h-16 w-16 rounded-2xl
+                bg-gradient-to-br from-indigo-500 to-violet-500
+                flex items-center justify-center
+                text-2xl font-bold text-white
+              ">
+                SN
               </div>
-              <div>
-                <p className="font-medium text-text-primary">Thesis: Reproducible ML Systems in Production</p>
-                <p className="text-sm">Automated MLOps pipeline achieving 95% reduction in ML iteration time while maintaining experiment rigor at production scale.</p>
+
+              <div className="space-y-1">
+                <h1 className="text-2xl font-semibold">
+                  Steffen Nordnes
+                </h1>
+                <p className="text-violet-400 font-medium">
+                  Computer Engineer & AI Engineer
+                </p>
+
+                <div className="flex items-center gap-2 text-sm text-text-secondary">
+                  <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                  Available for new projects
+                </div>
               </div>
             </div>
           </Panel>
 
-          {/* Experience */}
-          <Panel className="p-10 space-y-4">
-            <h3 className="text-lg font-medium">
-              Experience
-            </h3>
-            <div className="space-y-6 text-text-secondary">
-              <div>
-                <p className="font-medium text-text-primary">ML Systems Engineer (Intern)</p>
-                <p className="text-sm">Teknify AS • Oslo • Jun–Aug 2024</p>
-                <ul className="list-disc pl-5 mt-2 space-y-1 text-sm">
-                  <li>Built distributed feature pipeline (Spark) processing 2B+ events daily; reduced batch time from 6h to 18m</li>
-                  <li>Implemented automated model monitoring detecting degradation within 2 hours (vs. 7-14 day manual discovery)</li>
-                  <li>Prevented estimated $40k in bad predictions through early retraining alerts</li>
+          {/* ======================================================
+              TABS
+          ====================================================== */}
+          <div className="grid grid-cols-3 gap-3">
+            {tabs.map(tab => (
+              <button
+                key={tab}
+                onClick={() => setActive(tab)}
+                className={`
+                  py-3 rounded-xl text-sm font-medium transition
+                  ${active === tab
+                    ? "bg-violet-500/90 text-white"
+                    : "bg-white/5 text-text-secondary hover:bg-white/10"}
+                `}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+
+          {/* ======================================================
+              TAB CONTENT
+          ====================================================== */}
+          <Panel className="p-10 min-h-[260px]">
+            {active === "Vision" && (
+              <div className="space-y-6 max-w-[720px]">
+                <h3 className="text-xl font-medium">
+                  Vision
+                </h3>
+
+                <p className="text-text-secondary leading-relaxed">
+                  I focus on building machine learning systems that survive
+                  contact with reality. That means reproducibility, automation,
+                  observability, and engineering discipline — not just models
+                  that look good in notebooks.
+                </p>
+
+                <div className="flex flex-wrap gap-3">
+                  {["Production ML", "Reproducibility", "System Design"].map(x => (
+                    <span
+                      key={x}
+                      className="px-4 py-1.5 rounded-full text-sm
+                                 bg-violet-500/10 text-violet-300"
+                    >
+                      {x}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {active === "Expertise" && (
+              <div className="grid md:grid-cols-2 gap-6">
+                <ExpertiseCard
+                  icon={<Cpu />}
+                  title="ML Systems & MLOps"
+                  text="End-to-end pipelines, automated retraining, versioning, and monitoring."
+                />
+                <ExpertiseCard
+                  icon={<Layers />}
+                  title="Data & Infrastructure"
+                  text="Scalable data flows, containerized services, CI/CD, and cloud-native setups."
+                />
+                <ExpertiseCard
+                  icon={<Brain />}
+                  title="Applied Machine Learning"
+                  text="Practical modeling choices optimized for stability, not leaderboard scores."
+                />
+                <ExpertiseCard
+                  icon={<Sparkles />}
+                  title="Engineering Mindset"
+                  text="Clarity, documentation, and systems that work six months later."
+                />
+              </div>
+            )}
+
+            {active === "Focus" && (
+              <div className="space-y-6 max-w-[720px]">
+                <h3 className="text-xl font-medium">
+                  What I focus on
+                </h3>
+
+                <ul className="space-y-3 text-text-secondary">
+                  {[
+                    "Production-first ML systems",
+                    "Automation that saves real engineering time",
+                    "Reducing operational risk in ML deployments",
+                    "Teams that value explanation and clarity"
+                  ].map(item => (
+                    <li key={item} className="flex gap-3 items-start">
+                      <CheckCircle className="text-violet-400 mt-0.5" size={18} />
+                      <span>{item}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
-              <div>
-                <p className="font-medium text-text-primary">Data Science Researcher</p>
-                <p className="text-sm">University of Oslo AI Lab • Sep 2023–Present</p>
-                <ul className="list-disc pl-5 mt-2 space-y-1 text-sm">
-                  <li>Researched reproducibility in ML systems; published findings in thesis exploring DVC + automated testing</li>
-                  <li>Mentored 2 junior students on ML ops best practices and model deployment patterns</li>
-                </ul>
-              </div>
-            </div>
+            )}
           </Panel>
 
-          {/* Skills */}
-          <Panel className="p-10 space-y-4">
-            <h3 className="text-lg font-medium">
-              Technical Skills
-            </h3>
-            <div className="space-y-4 text-text-secondary">
-              <div>
-                <p className="font-medium text-text-primary text-sm mb-2">Languages & Core</p>
-                <p className="text-sm">Python (expert), SQL, Bash, JavaScript/TypeScript</p>
-              </div>
-              <div>
-                <p className="font-medium text-text-primary text-sm mb-2">ML & Data</p>
-                <p className="text-sm">PyTorch, TensorFlow, Scikit-learn, Pandas, Feature engineering, Time series forecasting, LSTM/GBDTs</p>
-              </div>
-              <div>
-                <p className="font-medium text-text-primary text-sm mb-2">MLOps & Infrastructure</p>
-                <p className="text-sm">DVC, Airflow, GitHub Actions, Docker, AWS (SageMaker, S3, Lambda), Spark, Kubernetes (basics)</p>
-              </div>
-              <div>
-                <p className="font-medium text-text-primary text-sm mb-2">Data & Monitoring</p>
-                <p className="text-sm">PostgreSQL, Prometheus, Grafana, Great Expectations, Statistical testing, Anomaly detection</p>
-              </div>
-              <div>
-                <p className="font-medium text-text-primary text-sm mb-2">Soft Skills</p>
-                <p className="text-sm">Clear technical communication, debugging complex systems, cross-functional collaboration, documentation-first mindset</p>
-              </div>
-            </div>
-          </Panel>
+          {/* ======================================================
+              STATS
+          ====================================================== */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <StatCard value="10+" label="Production Systems" />
+            <StatCard value="95%" label="Iteration Time Reduced" />
+            <StatCard value="3+" label="Years Hands-on ML" />
+            <StatCard value="∞" label="Focus on Reliability" />
+          </div>
 
-          {/* Philosophy */}
-          <Panel className="p-10 space-y-4">
-            <h3 className="text-lg font-medium">
-              How I work
-            </h3>
-            <p className="text-text-secondary">
-              I believe that 80% of ML failures are software engineering failures, not ML failures. That means: version control everything (code, data, configs), automate testing, document decisions, and monitor production systems obsessively.
-            </p>
-            <p className="text-text-secondary mt-3">
-              I write for reproducibility, not cleverness. I'd rather have code I understand in 6 months than code that's clever today but breaks tomorrow.
-            </p>
-          </Panel>
-
-          {/* Focus */}
-          <Panel className="p-10 space-y-4">
-            <h3 className="text-lg font-medium">
-              What I'm looking for
-            </h3>
-            <ul className="list-disc pl-5 space-y-2 text-text-secondary">
-              <li>ML systems roles where engineering discipline matters as much as ML research</li>
-              <li>Teams building production systems, not academic papers</li>
-              <li>Problems where 1% improvement in automation saves 10+ hours weekly</li>
-              <li>Mentorship: I learn fastest from people who care about explaining the 'why'</li>
-            </ul>
-          </Panel>
         </div>
       </Container>
     </main>
+  )
+}
+
+function ExpertiseCard({
+  icon,
+  title,
+  text
+}: {
+  icon: React.ReactNode
+  title: string
+  text: string
+}) {
+  return (
+    <div className="
+      rounded-xl p-6
+      bg-white/5 border border-white/10
+      space-y-3
+    ">
+      <div className="text-violet-400">{icon}</div>
+      <p className="font-medium">{title}</p>
+      <p className="text-sm text-text-secondary">{text}</p>
+    </div>
+  )
+}
+
+function StatCard({
+  value,
+  label
+}: {
+  value: string
+  label: string
+}) {
+  return (
+    <Panel className="p-6 text-center space-y-2">
+      <p className="text-3xl font-semibold">{value}</p>
+      <p className="text-sm text-text-secondary">{label}</p>
+    </Panel>
   )
 }
