@@ -5,6 +5,7 @@ import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
 import { Panel } from '@/components/ui/Panel'
 import { projects, Project } from '@/content/projects'
+import Particles from '@/components/ui/Particles'
 
 /* ---------------------------------------------
    Reusable Project Card
@@ -74,6 +75,21 @@ export default function ProjectsPage() {
     <main className="pt-40 pb-32">
       <Container>
         <Section kicker="Work" title="Projects">
+
+          <div className="absolute inset-0 z-0 pointer-events-none">
+          <Particles
+            particleColors={["#3c2277"]}
+            particleCount={100}
+            particleSpread={10}
+            speed={0.2}
+            particleBaseSize={100}
+            moveParticlesOnHover={false}
+            alphaParticles
+            disableRotation
+            pixelRatio={typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 1.5) : 1}
+            />
+          </div>
+
           {/* Intro */}
           <div className="mb-16 max-w-3xl space-y-6">
             <p className="text-lg text-text-secondary leading-relaxed">

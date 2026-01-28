@@ -6,12 +6,12 @@ import { projects } from "@/content/projects"
 import Link from "next/link"
 import TextType from "@/components/ui/TextType"
 import { BaseBackground } from "@/components/ui/BaseBackground"
-import { HeroLightOverlay } from "@/components/ui/HeroLightOverlay"
 import MagicBentoLite, { BentoItem } from "@/components/ui/MagicBentoLite"
 import HowIWorkPixel from "@/components/sections/HowIWorkPixel"
 
 
 import { Sparkles, Globe, Cpu, Users } from "lucide-react"
+import Particles from "@/components/ui/Particles"
 
 const bentoItems = [
   {
@@ -52,7 +52,19 @@ export default function HomePage() {
           HERO
          ====================================================== */}
       <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <HeroLightOverlay />
+          <div className="absolute inset-0 z-0 pointer-events-none">
+          <Particles
+            particleColors={["#3c2277"]}
+            particleCount={400}
+            particleSpread={10}
+            speed={0.2}
+            particleBaseSize={100}
+            moveParticlesOnHover={false}
+            alphaParticles
+            disableRotation
+            pixelRatio={typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 1.5) : 1}
+          />
+        </div>
 
         <Container className="relative z-10">
           <div className="space-y-6">
