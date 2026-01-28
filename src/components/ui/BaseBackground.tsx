@@ -29,7 +29,7 @@ export function BaseBackground() {
       <div
         className="
           absolute inset-0
-          bg-[radial-gradient(120%_100%_at_50%_40%,transparent_0%,rgba(0,0,0,0.45)_70%,rgba(0,0,0,0.75)_100%)]
+          bg-[radial-gradient(120%_100%_at_50%_40%,transparent_0%,rgba(0,0,0,0.45)_85%,rgba(0,0,0,0.75)_100%)]
         "
       />
       {/* Global depth darkening */}

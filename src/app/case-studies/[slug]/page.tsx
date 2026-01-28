@@ -4,6 +4,7 @@ import { Panel } from "@/components/ui/Panel"
 import { Tag } from "@/components/ui/Tag"
 import { caseStudies } from "@/content/caseStudies"
 import Link from "next/link"
+import { BaseBackground } from "@/components/ui/BaseBackground"
 
 export default async function CaseStudyDetailPage({
   params,
@@ -16,6 +17,7 @@ export default async function CaseStudyDetailPage({
 
   return (
     <main className="pt-40 pb-32">
+      <BaseBackground />
       <Container>
         {/* Header */}
         <header className="max-w-[720px] space-y-6 mb-24">

@@ -1,9 +1,11 @@
+import { BaseBackground } from "@/components/ui/BaseBackground"
 import { Container } from "@/components/ui/Container"
 import { Panel } from "@/components/ui/Panel"
 
 export default function AboutPage() {
   return (
     <main className="pt-40 pb-32">
+      <BaseBackground />
       <Container>
         <div className="max-w-[760px] space-y-24">
           {/* Intro */}

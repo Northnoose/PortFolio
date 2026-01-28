@@ -7,6 +7,7 @@ import { CaseStudyContent } from "@/components/sections/CaseStudyContent"
 import { caseStudies, CaseStudy } from "@/content/caseStudies"
 import { useState, useEffect } from "react"
 import { useModal } from "@/components/providers/ModalProvider"
+import { BaseBackground } from "@/components/ui/BaseBackground"
 
 export default function CaseStudiesPage() {
   const { openModal, closeModal } = useModal()
@@ -50,6 +51,7 @@ export default function CaseStudiesPage() {
 
   return (
     <main className="pt-40 pb-32">
+      <BaseBackground />
       <Container>
         <Section
           kicker="Deep dives"

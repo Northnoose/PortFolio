@@ -35,6 +35,29 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/Northnoose/ml-pipeline-automation",
     featured: true,
   },
+  {
+    slug: "waifare",
+    title: "WaiFare",
+    summary:
+      "Event-based travel planning that finds the cheapest route from A to B by combining flight, train, and bus options into a single timeline.",
+    tags: ["TypeScript", "Next.js", "Routing", "APIs", "Travel Tech"],
+
+    problem:
+      "Planning multi-leg travel is fragmented and time-consuming. Travelers juggle multiple providers, mismatched schedules, and constantly changing prices, often stitching itineraries manually while risking bad transfers and hidden costs.",
+
+    solution:
+      "Built an event-driven routing system that merges flights, trains, and buses into one unified graph. Normalized providers, deduplicated overlapping legs, and surfaced the cheapest reliable routes with clear pricing and transfer rules.",
+
+    highlights: [
+      "Unified flight, train, and bus routing into a single event-based timeline",
+      "Automatically identified cheapest viable routes across multiple providers",
+      "Reduced travel planning friction by eliminating manual itinerary stitching",
+      "Delivered a working, mobile-first prototype with live provider data",
+    ],
+
+    demoUrl: "https://waifare.no/",
+    featured: true,
+  },
 
   {
     slug: "time-series-forecasting",

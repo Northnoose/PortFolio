@@ -1,8 +1,10 @@
 import { Reveal } from "@/components/motion/Reveal"
+import { BaseBackground } from "@/components/ui/BaseBackground"
 
 export default function ExperiencePage() {
   return (
     <main className="pt-24 px-6">
+      <BaseBackground />
       <div className="mx-auto max-w-6xl space-y-20">
         {/* Intro */}
         <section className="max-w-3xl space-y-4">
