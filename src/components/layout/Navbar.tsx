@@ -21,12 +21,13 @@ export function Navbar() {
   const [dotX, setDotX] = useState(0)
   const [scrollProgress, setScrollProgress] = useState(0)
 
-  /* Calculate active item dot position */
+  /* =============================
+     ACTIVE DOT POSITION
+  ============================= */
   useEffect(() => {
     const active = navItems.find(item =>
       item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
     )
-
     if (!active) return
 
     const el = itemRefs.current[active.href]
@@ -40,26 +41,27 @@ export function Navbar() {
     setDotX(elRect.left - barRect.left + DOT_OFFSET)
   }, [pathname])
 
-  /* Scroll progress bar */
+  /* =============================
+     SCROLL PROGRESS
+  ============================= */
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY
       const docHeight =
         document.documentElement.scrollHeight - window.innerHeight
-
-      const progress = docHeight > 0 ? scrollTop / docHeight : 0
-      setScrollProgress(progress)
+      setScrollProgress(docHeight > 0 ? scrollTop / docHeight : 0)
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true })
     handleScroll()
-
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   return (
     <>
-      {/* Scroll progress bar */}
+      {/* =============================
+         SCROLL PROGRESS BAR
+      ============================= */}
       <div
         className="
           fixed top-0 left-0 z-[60]
@@ -74,8 +76,9 @@ export function Navbar() {
         }}
       />
 
-
-      {/* Sticky top bar */}
+      {/* =============================
+         NAVBAR
+      ============================= */}
       <header className="sticky top-0 z-50">
         <div
           className="
@@ -87,88 +90,118 @@ export function Navbar() {
             to-[#000000]/85
           "
         >
-          {/* Floating nav items */}
           <div
-            ref={barRef}
             className="
-              relative mx-auto
-              flex justify-center items-center
-              gap-6
-              py-6
+              mx-auto
+              max-w-[1400px]
+              px-6 py-6
+              grid
+              grid-cols-[auto_1fr_auto]
+              items-center
             "
           >
-            {/* Dynamic active dot */}
-            <span
-              className="
-                pointer-events-none
-                absolute top-1/2
-                h-2.5 w-2.5
-                rounded-full
-                bg-purple-400
-                transition-all duration-300 ease-out
-              "
-              style={{
-                left: dotX,
-                transform: "translate(-50%, -50%)",
-              }}
-            />
+            {/* LEFT — LOGO */}
+            <div className="justify-self-start">
+              <Link href="/" className="flex items-center gap-3 select-none">
+                <span
+                  className="
+                    h-10 w-10
+                    rounded-full
+                    bg-gradient-to-br from-violet-500 to-purple-600
+                    shadow-[0_0_18px_rgba(168,85,247,0.55)]
+                    transition-transform duration-300
+                    hover:scale-105
+                  "
+                />
+                <span className="hidden sm:inline text-lg font-semibold text-white tracking-tight">
+                  Steffen Nordnes
+                </span>
+              </Link>
+            </div>
 
-            {navItems.map(item => {
-              const active =
-                item.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(item.href)
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  ref={el => {
-                    itemRefs.current[item.href] = el
+            {/* CENTER — NAV ITEMS (TRUE CENTER) */}
+            <div className="flex justify-center">
+              <div
+                ref={barRef}
+                className="relative flex items-center gap-10 w-fit"
+              >
+                {/* Active dot */}
+                <span
+                  className="
+                    pointer-events-none
+                    absolute top-1/2
+                    h-2.5 w-2.5
+                    rounded-full
+                    bg-purple-400
+                    transition-all duration-300 ease-out
+                  "
+                  style={{
+                    left: dotX,
+                    transform: "translate(-50%, -50%)",
                   }}
-                  className={clsx(
-                    `
-                    relative flex items-center
-                    px-8 py-4
-                    text-lg font-medium
-                    rounded-2xl
-                    transition-all duration-300
-                    `,
-                    active
-                      ? "text-purple-300"
-                      : "text-neutral-300 hover:text-purple-200"
-                  )}
-                >
-                  {active && (
-                    <>
-                      {/* Active background */}
-                      <span
-                        className="
-                          absolute inset-0 -z-10
-                          rounded-2xl
-                          bg-purple-500/14
-                          backdrop-blur-md
-                        "
-                      />
+                />
 
-                      {/* Active glow */}
-                      <span
-                        className="
-                          absolute inset-0 -z-20
-                          rounded-2xl
-                          bg-purple-500/35
-                          blur-2xl
-                        "
-                      />
-                    </>
-                  )}
+                {navItems.map(item => {
+                  const active =
+                    item.href === "/"
+                      ? pathname === "/"
+                      : pathname.startsWith(item.href)
 
-                  <span className="relative z-10">
-                    {item.label}
-                  </span>
-                </Link>
-              )
-            })}
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      ref={el => {
+                        itemRefs.current[item.href] = el
+                      }}
+                      className={clsx(
+                        `
+                          relative flex items-center
+                          px-8 py-4
+                          text-lg font-medium
+                          rounded-2xl
+                          transition-all duration-300
+                          whitespace-nowrap
+                        `,
+                        active
+                          ? "text-purple-300"
+                          : "text-neutral-300 hover:text-purple-200"
+                      )}
+                    >
+                      {active && (
+                        <>
+                          <span className="absolute inset-0 -z-10 rounded-xl bg-purple-500/14 backdrop-blur-md" />
+                          <span className="absolute inset-0 -z-20 rounded-xl bg-purple-500/35 blur-2xl" />
+                        </>
+                      )}
+                      <span className="relative z-10">{item.label}</span>
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* RIGHT — CTA */}
+            <div className="justify-self-end">
+              <Link
+                href="/#contact"
+                className="
+                  hidden md:inline-flex
+                  items-center
+                  px-6 py-3
+                  rounded-xl
+                  text-base font-medium
+                  text-black
+                  bg-gradient-to-r from-violet-500 to-purple-500
+                  shadow-lg shadow-purple-500/30
+                  transition-all duration-300
+                  hover:brightness-110
+                  hover:-translate-y-0.5
+                "
+              >
+                Get in touch
+              </Link>
+            </div>
           </div>
         </div>
       </header>
