@@ -287,18 +287,49 @@ export default function PixelCard({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finalGap, finalSpeed, finalColors, finalNoFocus]);
 
-  return (
+   return (
     <div
       ref={containerRef}
-      className={`h-[400px] w-[300px] relative overflow-hidden grid place-items-center aspect-[4/5] border border-[#27272a] rounded-[25px] isolate transition-colors duration-200 ease-[cubic-bezier(0.5,1,0.89,1)] select-none ${className}`}
+      className={`
+        group relative isolate
+        h-[550px] w-[400px]
+        aspect-[4/5]
+        rounded-[28px]
+        border border-[#27272a]
+        overflow-hidden
+        transition-all duration-300
+        ${className}
+      `}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onFocus={finalNoFocus ? undefined : onFocus}
       onBlur={finalNoFocus ? undefined : onBlur}
       tabIndex={finalNoFocus ? -1 : 0}
     >
-      <canvas className="w-full h-full block" ref={canvasRef} />
-      {children}
+      {/* CANVAS — full bleed */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 z-0 pointer-events-none"
+      />
+
+      {/* DARK OVERLAY */}
+      <div
+        aria-hidden
+        className="absolute inset-0 z-[1] bg-black/40"
+      />
+
+      {/* SAFE ZONE (INGENTING KAN BRYTE DENNE) */}
+      <div
+        className="
+          relative z-10
+          h-full w-full
+          p-10
+          box-border
+          grid place-items-center
+        "
+      >
+        {children}
+      </div>
     </div>
   );
 }

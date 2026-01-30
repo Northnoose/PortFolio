@@ -12,6 +12,7 @@ import { Footer } from "@/components/ui/Footer"
 
 import { Sparkles, Globe, Cpu, Users } from "lucide-react"
 import Particles from "@/components/ui/Particles"
+import { HeroSectionHeader } from "@/components/ui/HeroSectionHeader"
 
 const bentoItems = [
   {
@@ -122,30 +123,53 @@ export default function HomePage() {
       </section>
 
       {/* OVERVIEW */}
+      <section className="relative py-40">
       <Container>
-        <Section kicker="Overview" title="What I Do">
-          <MagicBentoLite items={bentoItems} className="mt-12" />
-        </Section>
+        <HeroSectionHeader
+          title="What"
+          highlight="I Do"
+          subtitle="A focused overview of how I design, build, and deliver production-ready systems."
+        />
+
+        <MagicBentoLite items={bentoItems} />
       </Container>
+      </section>
+
+
 
       {/* HOW I WORK */}
+      <section className="relative py-40 mt-32">
       <Container>
-        <Section kicker="Process" title="How I Work">
-          <HowIWorkPixel />
-        </Section>
+        <HeroSectionHeader
+          title="How"
+          highlight="I Work"
+          subtitle="A structured, production-first approach from architecture to operation."
+        />
       </Container>
+      <div className="relative mx-auto mt-24 max-w-[1600px] px-12">
+        <HowIWorkPixel />
+      </div>
+      </section>
+
 
       {/* PROJECTS */}
+      <section className="relative py-40">
       <Container>
-        <Section kicker="Selected work" title="Projects">
-          <ProjectsGrid projects={featuredProjects} />
-        </Section>
+        <HeroSectionHeader
+          title="Recent"
+          highlight="Projects"
+          subtitle="Case studies demonstrating real-world constraints, engineering decisions, and measurable impact."
+        />
+
+        <ProjectsGrid projects={featuredProjects} />
       </Container>
+      </section>
+
 
       {/* ======================================================
     CONTACT / SERVICE INQUIRY
    ====================================================== */}
-<section id="contact" className="relative py-32 scroll-mt-32">
+  <section id="contact" className="relative py-32 scroll-mt-32">
 
   <Container>
     <div className="max-w-[820px] mx-auto text-center space-y-10">
@@ -251,16 +275,6 @@ export default function HomePage() {
               </div>
             </form>
           </Panel>
-
-          {/* Secondary CTA */}
-          <div className="pt-4">
-            <a
-              href="mailto:steffen@steffennordnes.dev"
-              className="text-sm text-violet-400 hover:underline inline-flex items-center gap-2"
-            >
-              Schedule a call →
-            </a>
-          </div>
         </div>
       </Container>
     </section>
