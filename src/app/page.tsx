@@ -1,5 +1,4 @@
 import { Container } from "@/components/ui/Container"
-import { Section } from "@/components/ui/Section"
 import { ProjectsGrid } from "@/components/sections/ProjectsGrid"
 import { Panel } from "@/components/ui/Panel"
 import { projects } from "@/content/projects"
@@ -8,35 +7,44 @@ import TextType from "@/components/ui/TextType"
 import { BaseBackground } from "@/components/ui/BaseBackground"
 import MagicBentoLite, { BentoItem } from "@/components/ui/MagicBentoLite"
 import HowIWorkPixel from "@/components/sections/HowIWorkPixel"
-import { Footer } from "@/components/ui/Footer"
 
 import { Sparkles, Globe, Cpu, Users } from "lucide-react"
 import Particles from "@/components/ui/Particles"
 import { HeroSectionHeader } from "@/components/ui/HeroSectionHeader"
 
+import { RevealGroup } from "@/components/motion/RevealGroup"
+import { RevealItem } from "@/components/motion/RevealItem"
+
 const bentoItems = [
   {
     title: "Client-First Approach",
     description: "Building trust through transparent communication and collaboration.",
-    icon: <Users size={20} />,
+    icon: <Users size={22} />,
+    variant: "client",
+    href: "/experience",
   },
   {
     title: "Modern Tech Stack",
-    description: "Next.js, TypeScript, Python, FastAPI, Docker, CI/CD and ML tooling.",
-    icon: <Cpu size={20} />,
+    description: "Technologies and tools I use to build innovative solutions.",
+    icon: <Cpu size={22} />,
     span: "big",
+    variant: "tech",
   },
   {
     title: "AI-Powered Solutions",
-    description: "Applied machine learning, automation and production-grade MLOps systems.",
-    icon: <Sparkles size={20} />,
+    description: "Intelligent automation, ML pipelines and LLM integrations.",
+    icon: <Sparkles size={22} />,
+    variant: "ai",
+    href: "/case-studies",
   },
   {
-    title: "Global Flexibility",
-    description: "Comfortable collaborating across time zones and async-first teams.",
-    icon: <Globe size={20} />,
+    title: "Available Time Zones",
+    description: "Flexible collaboration across regions and schedules.",
+    icon: <Globe size={22} />,
+    variant: "timezone",
   },
 ] satisfies BentoItem[]
+
 
 export default function HomePage() {
   const featuredProjects = projects.filter(p => p.featured)
@@ -45,7 +53,9 @@ export default function HomePage() {
     <main className="relative min-h-screen overflow-hidden">
       <BaseBackground />
 
-      {/* HERO */}
+      {/* ======================================================
+         HERO
+      ====================================================== */}
       <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Particles
@@ -64,114 +74,146 @@ export default function HomePage() {
         </div>
 
         <Container className="relative z-10">
-          <div className="space-y-6">
-            <div className="relative left-1/2 -translate-x-1/2 w-fit">
-              <TextType
-                as="h1"
-                className="
-                  block text-center
-                  min-w-[28ch]
-                  text-7xl md:text-8xl font-bold leading-tight
-                  bg-[linear-gradient(90deg,#ffffff_0%,#d6d6ff_28%,#a78bfa_55%,#60a5fa_100%)]
-                  bg-clip-text text-transparent
-                  drop-shadow-[0_0_28px_rgba(99,102,241,0.28)]
-                "
-                text={[
-                  "Hey! My name is Steffen",
-                  "Hei! Jeg heter Steffen",
-                  "Hola! Me llamo Steffen",
-                  "Bonjour! Je m'appelle Steffen",
-                  "Ciao! Mi chiamo Steffen",
-                  "Hej! Jag heter Steffen",
-                  "Hallo! Ich heiße Steffen",
-                  "你好！我叫 Steffen",
-                  "Hej! Jeg hedder Steffen",
-                  "नमस्ते! मेरा नाम Steffen है",
-                ]}
-                typingSpeed={75}
-                deletingSpeed={50}
-                pauseDuration={3500}
-                showCursor
-              />
-            </div>
+          <RevealGroup>
+            <RevealItem>
+              <div className="relative left-1/2 -translate-x-1/2 w-fit">
+                <TextType
+                  as="h1"
+                  className="
+                    block text-center
+                    min-w-[28ch]
+                    text-7xl md:text-8xl font-bold leading-tight
+                    bg-[linear-gradient(90deg,#ffffff_0%,#d6d6ff_28%,#a78bfa_55%,#60a5fa_100%)]
+                    bg-clip-text text-transparent
+                    drop-shadow-[0_0_28px_rgba(99,102,241,0.28)]
+                  "
+                  text={[
+                    "Hey! My name is Steffen",
+                    "Hei! Jeg heter Steffen",
+                    "Hola! Me llamo Steffen",
+                    "Bonjour! Je m'appelle Steffen",
+                    "Ciao! Mi chiamo Steffen",
+                    "Hej! Jag heter Steffen",
+                    "Hallo! Ich heiße Steffen",
+                    "你好！我叫 Steffen",
+                    "Hej! Jeg hedder Steffen",
+                    "नमस्ते! मेरा नाम Steffen है",
+                  ]}
+                  typingSpeed={75}
+                  deletingSpeed={50}
+                  pauseDuration={3500}
+                  showCursor
+                />
+              </div>
+            </RevealItem>
 
-            <h2 className="text-2xl md:text-3xl font-medium text-center text-[hsl(265_45%_85%)]">
-              Computer Engineer & AI Engineer
-            </h2>
+            <RevealItem>
+              <h2 className="text-2xl md:text-3xl font-medium text-center text-[hsl(265_45%_85%)]">
+                Computer Engineer & AI Engineer
+              </h2>
+            </RevealItem>
 
-            <p className="text-lg text-text-secondary text-center max-w-[720px] mx-auto">
-              Applied AI, ML systems & infrastructure — from prototype to production
-            </p>
+            <RevealItem>
+              <p className="text-lg text-text-secondary text-center max-w-[720px] mx-auto">
+                Applied AI, ML systems & infrastructure — from prototype to production
+              </p>
+            </RevealItem>
 
-            <div className="pt-4 flex gap-4 justify-center">
-              <Link
-                href="/projects"
-                className="px-6 py-3 rounded-md font-medium bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-lg hover:opacity-90 transition"
-              >
-                See my work
-              </Link>
+            <RevealItem>
+              <div className="pt-4 flex gap-4 justify-center">
+                <Link
+                  href="/projects"
+                  className="px-6 py-3 rounded-md font-medium bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-lg hover:opacity-90 transition"
+                >
+                  See my work
+                </Link>
 
-              <Link
-                href="/about"
-                className="px-6 py-3 rounded-md font-medium border border-white/20 text-white/80 hover:bg-white/5 transition"
-              >
-                About me
-              </Link>
-            </div>
-          </div>
+                <Link
+                  href="/about"
+                  className="px-6 py-3 rounded-md font-medium border border-white/20 text-white/80 hover:bg-white/5 transition"
+                >
+                  About me
+                </Link>
+              </div>
+            </RevealItem>
+          </RevealGroup>
         </Container>
       </section>
 
-      {/* OVERVIEW */}
+      {/* ======================================================
+         WHAT I DO
+      ====================================================== */}
       <section className="relative py-40">
-      <Container>
-        <HeroSectionHeader
-          title="What"
-          highlight="I Do"
-          subtitle="A focused overview of how I design, build, and deliver production-ready systems."
-        />
+        <Container>
+          <RevealGroup>
+            <RevealItem>
+              <HeroSectionHeader
+                title="What"
+                highlight="I Do"
+                subtitle="A focused overview of how I design, build, and deliver production-ready systems."
+              />
+            </RevealItem>
 
-        <MagicBentoLite items={bentoItems} />
-      </Container>
+            <RevealItem>
+              <MagicBentoLite items={bentoItems} />
+            </RevealItem>
+          </RevealGroup>
+        </Container>
       </section>
-
-
-
-      {/* HOW I WORK */}
-      <section className="relative py-40 mt-32">
-      <Container>
-        <HeroSectionHeader
-          title="How"
-          highlight="I Work"
-          subtitle="A structured, production-first approach from architecture to operation."
-        />
-      </Container>
-      <div className="relative mx-auto mt-24 max-w-[1600px] px-12">
-        <HowIWorkPixel />
-      </div>
-      </section>
-
-
-      {/* PROJECTS */}
-      <section className="relative py-40">
-      <Container>
-        <HeroSectionHeader
-          title="Recent"
-          highlight="Projects"
-          subtitle="Case studies demonstrating real-world constraints, engineering decisions, and measurable impact."
-        />
-
-        <ProjectsGrid projects={featuredProjects} />
-      </Container>
-      </section>
-
 
       {/* ======================================================
+         HOW I WORK
+      ====================================================== */}
+      <section className="relative py-40">
+        <RevealGroup>
+          <RevealItem>
+            <Container>
+              <HeroSectionHeader
+                title="How"
+                highlight="I Work"
+                subtitle="A structured, production-first approach from architecture to operation."
+              />
+            </Container>
+          </RevealItem>
+
+          <RevealItem>
+            <div className="relative mx-auto mt-24 max-w-[1600px] px-12">
+              <HowIWorkPixel />
+            </div>
+          </RevealItem>
+        </RevealGroup>
+      </section>
+
+      {/* ======================================================
+         PROJECTS
+      ====================================================== */}
+      <section className="relative py-40">
+        <Container>
+          <RevealGroup>
+            <RevealItem>
+              <HeroSectionHeader
+                title="Recent"
+                highlight="Projects"
+                subtitle="Case studies demonstrating real-world constraints, engineering decisions, and measurable impact."
+              />
+            </RevealItem>
+
+            <RevealItem>
+              <ProjectsGrid projects={featuredProjects} />
+            </RevealItem>
+          </RevealGroup>
+        </Container>
+      </section>
+
+{/* ======================================================
     CONTACT / SERVICE INQUIRY
    ====================================================== */}
   <section id="contact" className="relative py-32 scroll-mt-32">
 
+  
   <Container>
+    <RevealGroup>
+    <RevealItem>
     <div className="max-w-[820px] mx-auto text-center space-y-10">
 
       {/* Headline */}
@@ -276,9 +318,11 @@ export default function HomePage() {
             </form>
           </Panel>
         </div>
+        </RevealItem>
+        </RevealGroup>
       </Container>
-    </section>
 
+      </section>
     </main>
   )
 }

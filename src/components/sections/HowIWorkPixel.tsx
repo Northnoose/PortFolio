@@ -4,13 +4,12 @@ export default function HowIWorkPixel() {
   return (
     <div
       className="
-        mt-24
         grid
         grid-cols-1
         xl:grid-cols-3
         gap-x-24
         gap-y-28
-        place-items-center
+        justify-items-center
       "
     >
       {/* =============================
@@ -32,13 +31,13 @@ export default function HowIWorkPixel() {
             <span
               className="
                 inline-flex items-center
-                px-6 py-2.5
+                px-8 py-3
                 rounded-full
-                text-sm font-semibold tracking-widest
+                text-base font-semibold tracking-[0.2em]
                 text-pink-200
-                bg-gradient-to-r from-pink-500/20 to-pink-400/10
-                border border-pink-400/30
-                shadow-[0_0_25px_rgba(236,72,153,0.35)]
+                bg-gradient-to-r from-pink-500/25 to-pink-400/10
+                border border-pink-400/40
+                shadow-[0_0_35px_rgba(236,72,153,0.45)]
               "
             >
               STEP 01
@@ -51,17 +50,17 @@ export default function HowIWorkPixel() {
               absolute inset-0
               flex flex-col items-center justify-center
               text-center
-              px-10
-              opacity-0 translate-y-4
+              px-14
+              opacity-0 translate-y-6
               transition-all duration-300 delay-75
               group-hover:opacity-100
               group-hover:translate-y-0
             "
           >
-            <h4 className="text-2xl font-semibold text-white">
+            <h4 className="text-3xl font-semibold text-white">
               Architecture
             </h4>
-            <p className="mt-4 text-sm text-white/80 leading-relaxed max-w-[280px]">
+            <p className="mt-6 text-base text-white/80 leading-relaxed max-w-[340px]">
               I design systems around real constraints — scalability,
               observability and long-term maintainability.
             </p>
@@ -88,13 +87,13 @@ export default function HowIWorkPixel() {
             <span
               className="
                 inline-flex items-center
-                px-6 py-2.5
+                px-8 py-3
                 rounded-full
-                text-sm font-semibold tracking-widest
+                text-base font-semibold tracking-[0.2em]
                 text-sky-200
-                bg-gradient-to-r from-sky-500/20 to-sky-400/10
-                border border-sky-400/30
-                shadow-[0_0_25px_rgba(56,189,248,0.35)]
+                bg-gradient-to-r from-sky-500/25 to-sky-400/10
+                border border-sky-400/40
+                shadow-[0_0_35px_rgba(56,189,248,0.45)]
               "
             >
               STEP 02
@@ -106,17 +105,17 @@ export default function HowIWorkPixel() {
               absolute inset-0
               flex flex-col items-center justify-center
               text-center
-              px-10
-              opacity-0 translate-y-4
+              px-14
+              opacity-0 translate-y-6
               transition-all duration-300 delay-75
               group-hover:opacity-100
               group-hover:translate-y-0
             "
           >
-            <h4 className="text-2xl font-semibold text-white">
+            <h4 className="text-3xl font-semibold text-white">
               Build & Automate
             </h4>
-            <p className="mt-4 text-sm text-white/80 leading-relaxed max-w-[280px]">
+            <p className="mt-6 text-base text-white/80 leading-relaxed max-w-[340px]">
               Clean code, automated pipelines and reproducible ML workflows —
               engineered for production, not demos.
             </p>
@@ -143,13 +142,13 @@ export default function HowIWorkPixel() {
             <span
               className="
                 inline-flex items-center
-                px-6 py-2.5
+                px-8 py-3
                 rounded-full
-                text-sm font-semibold tracking-widest
+                text-base font-semibold tracking-[0.2em]
                 text-amber-200
-                bg-gradient-to-r from-amber-400/25 to-yellow-300/10
-                border border-amber-300/30
-                shadow-[0_0_25px_rgba(251,191,36,0.35)]
+                bg-gradient-to-r from-amber-400/30 to-yellow-300/10
+                border border-amber-300/40
+                shadow-[0_0_35px_rgba(251,191,36,0.45)]
               "
             >
               STEP 03
@@ -161,17 +160,17 @@ export default function HowIWorkPixel() {
               absolute inset-0
               flex flex-col items-center justify-center
               text-center
-              px-10
-              opacity-0 translate-y-4
+              px-14
+              opacity-0 translate-y-6
               transition-all duration-300 delay-75
               group-hover:opacity-100
               group-hover:translate-y-0
             "
           >
-            <h4 className="text-2xl font-semibold text-white">
+            <h4 className="text-3xl font-semibold text-white">
               Operate & Improve
             </h4>
-            <p className="mt-4 text-sm text-white/80 leading-relaxed max-w-[280px]">
+            <p className="mt-6 text-base text-white/80 leading-relaxed max-w-[340px]">
               I monitor drift, performance and failures — then iterate safely
               based on real production feedback.
             </p>

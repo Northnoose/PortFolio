@@ -1,20 +1,25 @@
-import { Reveal } from "@/components/motion/Reveal"
 import { BaseBackground } from "@/components/ui/BaseBackground"
 import { Container } from "@/components/ui/Container"
 import Particles from "@/components/ui/Particles"
 
+import { RevealGroup } from "@/components/motion/RevealGroup"
+import { RevealItem } from "@/components/motion/RevealItem"
+
 import { GraduationCap, Briefcase } from "lucide-react"
 
+/* ======================================================
+   PAGE
+====================================================== */
 export default function ExperiencePage() {
   return (
     <main className="pt-8 pb-32 relative overflow-hidden">
       <BaseBackground />
 
       {/* ======================================================
-          INTRO (OPTICALLY CENTERED)
+          INTRO / HERO
       ====================================================== */}
       <section className="relative w-full flex justify-center mt-24">
-          <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 z-0 pointer-events-none">
           <Particles
             particleColors={["#3c2277"]}
             particleCount={40}
@@ -24,10 +29,13 @@ export default function ExperiencePage() {
             moveParticlesOnHover={false}
             alphaParticles
             disableRotation
-            pixelRatio={typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 1.5) : 1}
-            />
-          </div>
-
+            pixelRatio={
+              typeof window !== "undefined"
+                ? Math.min(window.devicePixelRatio, 1.5)
+                : 1
+            }
+          />
+        </div>
 
         {/* Glow */}
         <div
@@ -41,34 +49,41 @@ export default function ExperiencePage() {
           "
         />
 
-        <div className="relative text-center max-w-3xl px-6">
-          <h1 className="text-6xl md:text-7xl font-semibold tracking-tight">
-            My{" "}
-            <span className="text-violet-400">
-              Journey
-            </span>
-          </h1>
+        <RevealGroup>
+          <RevealItem>
+            <div className="relative text-center max-w-3xl px-6">
+              <h1 className="text-6xl md:text-7xl font-semibold tracking-tight">
+                My{" "}
+                <span className="text-violet-400">
+                  Journey
+                </span>
+              </h1>
 
-          <p className="mt-6
-                        text-base md:text-lg
-                        font-light
-                        tracking-wide
-                        text-white/85
-                        leading-relaxed
-                        text-center
-                        max-w-3xl
-                        mx-auto">
-            A progression from engineering fundamentals to building reliable,
-            production-ready AI systems, shaped by curiosity, structure, and
-            real-world constraints.
-          </p>
-        </div>
+              <p
+                className="
+                  mt-6
+                  text-base md:text-lg
+                  font-light
+                  tracking-wide
+                  text-white/85
+                  leading-relaxed
+                  max-w-3xl
+                  mx-auto
+                "
+              >
+                A progression from engineering fundamentals to building reliable,
+                production-ready AI systems, shaped by curiosity, structure, and
+                real-world constraints.
+              </p>
+            </div>
+          </RevealItem>
+        </RevealGroup>
       </section>
 
+      {/* ======================================================
+          TIMELINE
+      ====================================================== */}
       <Container>
-        {/* ======================================================
-            TIMELINE
-        ====================================================== */}
         <div className="relative mt-32">
           {/* Center spine */}
           <div
@@ -80,44 +95,46 @@ export default function ExperiencePage() {
             "
           />
 
-          <div className="space-y-24">
-            {/* =============================
-                EDUCATION
-            ============================= */}
-            <Reveal>
-              <TimelineItem
-                side="left"
-                date="2022 – Present"
-                title="Bachelor’s Degree in Data Science"
-                subtitle="UiT – The Arctic University of Norway, Narvik"
-                icon={<GraduationCap size={18} />}
-                color="indigo"
-              >
-                Focused on machine learning, data analysis, and applied
-                programming. My bachelor project explores automation,
-                reproducibility, and structure in machine learning workflows
-                through a production-oriented MLOps pipeline.
-              </TimelineItem>
-            </Reveal>
+          <RevealGroup>
+            <div className="space-y-24">
+              {/* =============================
+                  EDUCATION
+              ============================= */}
+              <RevealItem>
+                <TimelineItem
+                  side="left"
+                  date="2022 – Present"
+                  title="Bachelor’s Degree in Data Science"
+                  subtitle="UiT – The Arctic University of Norway, Narvik"
+                  icon={<GraduationCap size={18} />}
+                  color="indigo"
+                >
+                  Focused on machine learning, data analysis, and applied
+                  programming. My bachelor project explores automation,
+                  reproducibility, and structure in machine learning workflows
+                  through a production-oriented MLOps pipeline.
+                </TimelineItem>
+              </RevealItem>
 
-            {/* =============================
-                WORK
-            ============================= */}
-            <Reveal>
-              <TimelineItem
-                side="right"
-                date="2023 – Present"
-                title="Customer Service / Reception"
-                subtitle="Frankfurt, Germany"
-                icon={<Briefcase size={18} />}
-                color="violet"
-              >
-                Working part-time alongside my studies, gaining hands-on
-                experience in communication, responsibility, and coordinating
-                daily operations in a fast-paced, customer-facing environment.
-              </TimelineItem>
-            </Reveal>
-          </div>
+              {/* =============================
+                  WORK
+              ============================= */}
+              <RevealItem>
+                <TimelineItem
+                  side="right"
+                  date="2023 – Present"
+                  title="Customer Service / Reception"
+                  subtitle="Frankfurt, Germany"
+                  icon={<Briefcase size={18} />}
+                  color="violet"
+                >
+                  Working part-time alongside my studies, gaining hands-on
+                  experience in communication, responsibility, and coordinating
+                  daily operations in a fast-paced, customer-facing environment.
+                </TimelineItem>
+              </RevealItem>
+            </div>
+          </RevealGroup>
         </div>
       </Container>
     </main>
@@ -168,9 +185,11 @@ function TimelineItem({
             flex items-center justify-center
             w-10 h-10 rounded-full
             bg-gradient-to-br
-            ${color === "indigo"
-              ? "from-indigo-500 to-indigo-400"
-              : "from-violet-500 to-violet-400"}
+            ${
+              color === "indigo"
+                ? "from-indigo-500 to-indigo-400"
+                : "from-violet-500 to-violet-400"
+            }
             text-white
             shadow-[0_0_0_6px_rgba(99,102,241,0.2)]
           `}
@@ -195,6 +214,9 @@ function TimelineItem({
   )
 }
 
+/* ======================================================
+   TIMELINE CARD
+====================================================== */
 function TimelineCard({
   title,
   subtitle,
