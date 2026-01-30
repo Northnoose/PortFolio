@@ -1,4 +1,7 @@
+"use client"
+
 import { Container } from "@/components/ui/Container"
+import { useState } from "react"
 import { ProjectsGrid } from "@/components/sections/ProjectsGrid"
 import { Panel } from "@/components/ui/Panel"
 import { projects } from "@/content/projects"
@@ -48,6 +51,41 @@ const bentoItems = [
 
 export default function HomePage() {
   const featuredProjects = projects.filter(p => p.featured)
+
+  const [loading, setLoading] = useState(false)
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle")
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setLoading(true)
+    setStatus("idle")
+
+    const form = e.currentTarget
+
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+      projectType: (form.elements.namedItem("projectType") as HTMLSelectElement).value,
+    }
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+
+      if (!res.ok) throw new Error()
+      setStatus("success")
+      form.reset()
+    } catch {
+      setStatus("error")
+    } finally {
+      setLoading(false)
+    }
+  }
+
 
   return (
     <main className="relative min-h-screen overflow-hidden">
@@ -256,12 +294,14 @@ export default function HomePage() {
             "
           />
 
-          <form className="space-y-6 text-left">
+          <form className="space-y-6 text-left" onSubmit={handleSubmit}>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <input
+                  name="name"
                   type="text"
                   placeholder="Your name"
+                  required
                   className="w-full rounded-lg bg-black/40 border border-white/10
                             px-4 py-3 text-sm text-white
                             placeholder:text-white/40
@@ -269,8 +309,10 @@ export default function HomePage() {
                 />
 
                 <input
+                  name="email"
                   type="email"
                   placeholder="Your email"
+                  required
                   className="w-full rounded-lg bg-black/40 border border-white/10
                             px-4 py-3 text-sm text-white
                             placeholder:text-white/40
@@ -279,8 +321,10 @@ export default function HomePage() {
               </div>
 
               <textarea
+                name="message"
                 rows={5}
                 placeholder="Tell me about your project"
+                required
                 className="w-full rounded-lg bg-black/40 border border-white/10
                           px-4 py-3 text-sm text-white
                           placeholder:text-white/40
@@ -289,11 +333,13 @@ export default function HomePage() {
               />
 
               <select
+                name="projectType"
                 className="w-full rounded-lg bg-black/40 border border-white/10
                           px-4 py-3 text-sm text-white/80
                           focus:outline-none focus:border-violet-400/60"
               >
                 <option>Select project type (optional)</option>
+                <option>Website</option>
                 <option>ML / AI system</option>
                 <option>MLOps / Infrastructure</option>
                 <option>Data engineering</option>
@@ -304,18 +350,33 @@ export default function HomePage() {
               <div className="pt-4">
                 <button
                   type="submit"
+                  disabled={loading}
                   className="
                     w-full py-3 rounded-lg font-medium
                     bg-gradient-to-r from-indigo-500 to-violet-500
                     text-white
                     shadow-lg
                     hover:opacity-90 transition
+                    disabled:opacity-50
                   "
                 >
-                  Send message
+                  {loading ? "Sending…" : "Send message"}
                 </button>
+
               </div>
             </form>
+            {status === "success" && (
+              <p className="text-emerald-400 text-sm text-center">
+                Message sent successfully.
+              </p>
+            )}
+
+            {status === "error" && (
+              <p className="text-red-400 text-sm text-center">
+                Something went wrong. Please try again.
+              </p>
+            )}
+
           </Panel>
         </div>
         </RevealItem>
