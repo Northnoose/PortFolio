@@ -1,8 +1,18 @@
-'use client'
+"use client"
 
 import { Tag } from "@/components/ui/Tag"
 import { CaseStudy } from "@/content/caseStudies"
 import { useModal } from "@/components/providers/ModalProvider"
+import { LucideIcon } from "lucide-react"
+
+import {
+  FileText,
+  AlertTriangle,
+  Lock,
+  Route,
+  CheckCircle2,
+  Lightbulb,
+} from "lucide-react"
 
 interface CaseStudyContentProps {
   caseStudy: CaseStudy
@@ -13,21 +23,18 @@ export function CaseStudyContent({ caseStudy }: CaseStudyContentProps) {
 
   return (
     <div className="flex flex-col">
-      {/* Header with colored background */}
-      <div className="bg-gradient-to-r from-blue-950/40 via-purple-950/30 to-blue-950/40 border-b border-border-soft px-6 md:px-8 py-8 md:py-10 relative">
-        {/* Decorative left accent */}
-        <div className="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-blue-500/60 to-transparent" />
-        
+      {/* Header */}
+      <div className="bg-gradient-to-r from-blue-950/50 via-purple-950/40 to-blue-950/50 border-b border-border-soft px-6 md:px-8 py-8 md:py-10 relative">
+        <div className="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-blue-500/70 to-transparent" />
+
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
-            {/* Domain tag */}
             <div className="inline-block mb-4">
-              <span className="text-xs font-semibold uppercase tracking-widest text-text-muted bg-bg-panel px-3 py-1 rounded">
+              <span className="text-xs font-semibold uppercase tracking-widest text-text-muted bg-bg-panel/80 px-3 py-1 rounded">
                 {caseStudy.domain}
               </span>
             </div>
-            
-            {/* Title and summary */}
+
             <h1 className="text-4xl md:text-5xl font-bold leading-tight text-text-primary mb-3">
               {caseStudy.title}
             </h1>
@@ -36,7 +43,6 @@ export function CaseStudyContent({ caseStudy }: CaseStudyContentProps) {
             </p>
           </div>
 
-          {/* Close Button */}
           <button
             onClick={closeModal}
             className="flex-shrink-0 p-2 text-text-muted hover:text-text-primary hover:bg-bg-panel rounded-lg transition-all duration-200 hover:scale-110"
@@ -49,11 +55,13 @@ export function CaseStudyContent({ caseStudy }: CaseStudyContentProps) {
           </button>
         </div>
 
-        {/* Tech Stack */}
         {caseStudy.stack && caseStudy.stack.length > 0 && (
           <div className="flex flex-wrap gap-2 pt-6 border-t border-border-soft/40 mt-6">
             {caseStudy.stack.map(tech => (
-              <span key={tech} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-bg-panel border border-border-soft text-text-secondary hover:border-text-primary transition-colors">
+              <span
+                key={tech}
+                className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-bg-panel/80 border border-border-soft text-text-secondary hover:border-text-primary transition-colors"
+              >
                 {tech}
               </span>
             ))}
@@ -61,125 +69,154 @@ export function CaseStudyContent({ caseStudy }: CaseStudyContentProps) {
         )}
       </div>
 
-      {/* Content sections */}
+      {/* Content */}
       <div className="space-y-8 px-6 md:px-8 py-8 md:py-12">
-        {/* Content Sections */}
-        <div className="space-y-6">
-          {/* Context */}
-          <SectionCard 
-            icon="📋"
-            title="Context"
-            content={caseStudy.context}
+        <SectionCard
+          icon={FileText}
+          title="Context"
+          content={caseStudy.context}
+          accentColor="from-slate-900/30 via-slate-900/15 to-transparent"
+          borderColor="border-slate-800/40"
+        />
+
+        <SectionCard
+          icon={AlertTriangle}
+          title="Problem"
+          content={caseStudy.problem}
+          accentColor="from-red-900/35 via-red-900/20 to-transparent"
+          borderColor="border-red-800/40"
+        />
+
+        {caseStudy.constraints?.length > 0 && (
+          <ListSection
+            icon={Lock}
+            title="Constraints"
+            items={caseStudy.constraints}
+            accentColor="from-amber-900/35 via-amber-900/20 to-transparent"
+            borderColor="border-amber-800/40"
+            itemIcon={AlertTriangle}
           />
+        )}
 
-          {/* Problem */}
-          <SectionCard 
-            icon="⚠️"
-            title="Problem"
-            content={caseStudy.problem}
-            accentColor="from-red-900/10 to-transparent"
-            borderColor="border-red-900/20"
+        {caseStudy.approach?.length > 0 && (
+          <ListSection
+            icon={Route}
+            title="Approach"
+            items={caseStudy.approach}
+            accentColor="from-sky-900/35 via-sky-900/20 to-transparent"
+            borderColor="border-sky-800/40"
+            itemIcon={Route}
           />
+        )}
 
-          {/* Constraints */}
-          {caseStudy.constraints && caseStudy.constraints.length > 0 && (
-            <div className="bg-gradient-to-br from-amber-900/10 to-transparent border border-amber-900/20 rounded-lg p-6 space-y-3">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-xl">🔒</span>
-                <h3 className="text-lg font-semibold text-text-primary">Constraints</h3>
-              </div>
-              <ul className="space-y-3">
-                {caseStudy.constraints.map((constraint, idx) => (
-                  <li key={idx} className="flex gap-3 items-start">
-                    <span className="text-text-muted font-semibold flex-shrink-0 mt-0.5">•</span>
-                    <span className="text-text-secondary leading-relaxed">{constraint}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+        {caseStudy.results?.length > 0 && (
+          <ListSection
+            icon={CheckCircle2}
+            title="Results"
+            items={caseStudy.results}
+            accentColor="from-emerald-900/35 via-emerald-900/20 to-transparent"
+            borderColor="border-emerald-800/40"
+            itemIcon={CheckCircle2}
+            itemIconClass="text-emerald-400/80"
+          />
+        )}
 
-          {/* Approach */}
-          {caseStudy.approach && caseStudy.approach.length > 0 && (
-            <div className="bg-gradient-to-br from-blue-900/10 to-transparent border border-blue-900/20 rounded-lg p-6 space-y-3">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-xl">🎯</span>
-                <h3 className="text-lg font-semibold text-text-primary">Approach</h3>
-              </div>
-              <ul className="space-y-3">
-                {caseStudy.approach.map((step, idx) => (
-                  <li key={idx} className="flex gap-3 items-start">
-                    <span className="text-blue-400 font-bold flex-shrink-0 mt-0.5">→</span>
-                    <span className="text-text-secondary leading-relaxed">{step}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Results */}
-          {caseStudy.results && caseStudy.results.length > 0 && (
-            <div className="bg-gradient-to-br from-green-900/10 to-transparent border border-green-900/20 rounded-lg p-6 space-y-3">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-xl">✨</span>
-                <h3 className="text-lg font-semibold text-text-primary">Results</h3>
-              </div>
-              <ul className="space-y-3">
-                {caseStudy.results.map((result, idx) => (
-                  <li key={idx} className="flex gap-3 items-start">
-                    <span className="text-green-400 font-bold flex-shrink-0 mt-0.5">✓</span>
-                    <span className="text-text-secondary leading-relaxed">{result}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Learnings */}
-          {caseStudy.learnings && caseStudy.learnings.length > 0 && (
-            <div className="bg-gradient-to-br from-purple-900/10 to-transparent border border-purple-900/20 rounded-lg p-6 space-y-3">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-xl">💡</span>
-                <h3 className="text-lg font-semibold text-text-primary">Key Learnings</h3>
-              </div>
-              <ul className="space-y-3">
-                {caseStudy.learnings.map((learning, idx) => (
-                  <li key={idx} className="flex gap-3 items-start">
-                    <span className="text-purple-400 font-bold flex-shrink-0 mt-0.5">→</span>
-                    <span className="text-text-secondary leading-relaxed">{learning}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
+        {caseStudy.learnings?.length > 0 && (
+          <ListSection
+            icon={Lightbulb}
+            title="Key Learnings"
+            items={caseStudy.learnings}
+            accentColor="from-violet-900/35 via-violet-900/20 to-transparent"
+            borderColor="border-violet-800/40"
+            itemIcon={Lightbulb}
+          />
+        )}
       </div>
     </div>
   )
 }
 
+/* ============================================================
+   Components
+============================================================ */
+
 interface SectionCardProps {
-  icon: string
+  icon: LucideIcon
   title: string
   content: string
   accentColor?: string
   borderColor?: string
 }
 
-function SectionCard({ 
-  icon, 
-  title, 
+function SectionCard({
+  icon: Icon,
+  title,
   content,
-  accentColor = "from-slate-900/10 to-transparent",
-  borderColor = "border-slate-900/20"
+  accentColor = "from-slate-900/30 via-slate-900/15 to-transparent",
+  borderColor = "border-slate-800/40",
 }: SectionCardProps) {
   return (
-    <div className={`bg-gradient-to-br ${accentColor} ${borderColor} border rounded-lg p-6 space-y-3`}>
+    <div
+      className={`
+        bg-bg-panel/80
+        bg-gradient-to-br ${accentColor}
+        ${borderColor} border
+        rounded-lg p-6 space-y-3
+        shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]
+      `}
+    >
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-xl">{icon}</span>
+        <Icon className="h-5 w-5 text-text-muted" />
         <h3 className="text-lg font-semibold text-text-primary">{title}</h3>
       </div>
-      <p className="text-text-secondary leading-relaxed ml-7">{content}</p>
+      <p className="text-text-secondary leading-relaxed ml-7">
+        {content}
+      </p>
+    </div>
+  )
+}
+
+interface ListSectionProps {
+  icon: LucideIcon
+  title: string
+  items: string[]
+  accentColor: string
+  borderColor: string
+  itemIcon: LucideIcon
+  itemIconClass?: string
+}
+
+function ListSection({
+  icon: Icon,
+  title,
+  items,
+  accentColor,
+  borderColor,
+  itemIcon: ItemIcon,
+  itemIconClass = "text-text-muted",
+}: ListSectionProps) {
+  return (
+    <div
+      className={`
+        bg-bg-panel/80
+        bg-gradient-to-br ${accentColor}
+        ${borderColor} border
+        rounded-lg p-6 space-y-3
+        shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]
+      `}
+    >
+      <div className="flex items-center gap-2 mb-4">
+        <Icon className="h-5 w-5 text-text-muted" />
+        <h3 className="text-lg font-semibold text-text-primary">{title}</h3>
+      </div>
+      <ul className="space-y-3">
+        {items.map((item, idx) => (
+          <li key={idx} className="flex gap-3 items-start">
+            <ItemIcon className={`h-4 w-4 flex-shrink-0 mt-1 ${itemIconClass}`} />
+            <span className="text-text-secondary leading-relaxed">{item}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

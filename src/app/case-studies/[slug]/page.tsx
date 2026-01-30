@@ -5,6 +5,15 @@ import { Tag } from "@/components/ui/Tag"
 import { caseStudies } from "@/content/caseStudies"
 import Link from "next/link"
 import { BaseBackground } from "@/components/ui/BaseBackground"
+import {
+  Target,
+  AlertTriangle,
+  Layers,
+  Route,
+  CheckCircle2,
+  Lightbulb,
+} from "lucide-react"
+
 
 export default async function CaseStudyDetailPage({
   params,
@@ -61,7 +70,7 @@ export default async function CaseStudyDetailPage({
             <ul className="space-y-2">
               {cs.constraints.map((constraint, idx) => (
                 <li key={idx} className="flex gap-3">
-                  <span className="text-text-muted flex-shrink-0 mt-1">•</span>
+                  <AlertTriangle className="h-4 w-4 text-text-muted flex-shrink-0 mt-1" />
                   <span className="text-text-secondary">{constraint}</span>
                 </li>
               ))}
@@ -73,7 +82,7 @@ export default async function CaseStudyDetailPage({
             <ul className="space-y-3">
               {cs.approach.map((step, idx) => (
                 <li key={idx} className="flex gap-3">
-                  <span className="text-text-muted flex-shrink-0">→</span>
+                  <Layers className="h-4 w-4 text-text-muted flex-shrink-0 mt-1" />
                   <span className="text-text-secondary">{step}</span>
                 </li>
               ))}
@@ -85,7 +94,7 @@ export default async function CaseStudyDetailPage({
             <ul className="space-y-3">
               {cs.results.map((result, idx) => (
                 <li key={idx} className="flex gap-3">
-                  <span className="text-text-muted flex-shrink-0 mt-1">✓</span>
+                  <CheckCircle2 className="h-4 w-4 text-emerald-400/80 flex-shrink-0 mt-1" />
                   <span className="text-text-secondary">{result}</span>
                 </li>
               ))}
@@ -97,7 +106,7 @@ export default async function CaseStudyDetailPage({
             <ul className="space-y-3">
               {cs.learnings.map((learning, idx) => (
                 <li key={idx} className="flex gap-3">
-                  <span className="text-text-muted flex-shrink-0">→</span>
+                  <Lightbulb className="h-4 w-4 text-text-muted flex-shrink-0 mt-1" />
                   <span className="text-text-secondary">{learning}</span>
                 </li>
               ))}

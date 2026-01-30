@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image"
 
 import { Container } from "@/components/ui/Container"
 import { Panel } from "@/components/ui/Panel"
@@ -10,6 +11,7 @@ import { projects } from "@/content/projects"
 
 import { RevealGroup } from "@/components/motion/RevealGroup"
 import { RevealItem } from "@/components/motion/RevealItem"
+import Particles from "@/components/ui/Particles"
 
 export default async function ProjectDetailPage({
   params
@@ -20,9 +22,29 @@ export default async function ProjectDetailPage({
   const project = projects.find(p => p.slug === slug)
   if (!project) notFound()
 
+  const images = project.images?.slice(0, 2) ?? []
+
   return (
     <main className="pt-40 pb-32 relative">
       <BaseBackground />
+      {/* Particles */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <Particles
+          particleColors={['#3c2277']}
+          particleCount={100}
+          particleSpread={10}
+          speed={0.2}
+          particleBaseSize={100}
+          moveParticlesOnHover={false}
+          alphaParticles
+          disableRotation
+          pixelRatio={
+            typeof window !== 'undefined'
+              ? Math.min(window.devicePixelRatio, 1.5)
+              : 1
+          }
+        />
+      </div>
 
       <Container>
         {/* ======================================================
@@ -43,7 +65,6 @@ export default async function ProjectDetailPage({
         <RevealGroup>
           <RevealItem>
             <header className="relative mt-12 max-w-3xl space-y-6">
-              {/* Subtle glow */}
               <div
                 aria-hidden
                 className="
@@ -88,7 +109,6 @@ export default async function ProjectDetailPage({
           ============================= */}
           <RevealGroup>
             <article className="space-y-20">
-              {/* Context & Problem */}
               <RevealItem>
                 <section className="relative pl-6 space-y-4">
                   <div className="absolute left-0 top-1 h-full w-px bg-gradient-to-b from-indigo-400/60 to-transparent" />
@@ -101,7 +121,6 @@ export default async function ProjectDetailPage({
                 </section>
               </RevealItem>
 
-              {/* Solution */}
               <RevealItem>
                 <section className="relative pl-6 space-y-4">
                   <div className="absolute left-0 top-1 h-full w-px bg-gradient-to-b from-indigo-400/60 to-transparent" />
@@ -114,7 +133,6 @@ export default async function ProjectDetailPage({
                 </section>
               </RevealItem>
 
-              {/* Highlights */}
               {project.highlights?.length > 0 && (
                 <RevealItem>
                   <section className="relative pl-6 space-y-6">
@@ -145,11 +163,11 @@ export default async function ProjectDetailPage({
           </RevealGroup>
 
           {/* =============================
-              SIDE META (STICKY)
+              SIDE META
           ============================= */}
+          <aside className="lg:sticky lg:top-32 self-start">
           <RevealGroup>
             <RevealItem>
-              <aside className="lg:sticky lg:top-32 h-fit">
                 <Panel
                   className="
                     relative p-6 space-y-6
@@ -159,7 +177,6 @@ export default async function ProjectDetailPage({
                     to-indigo-950/30
                   "
                 >
-                  {/* Edge glow */}
                   <div
                     aria-hidden
                     className="
@@ -169,7 +186,6 @@ export default async function ProjectDetailPage({
                     "
                   />
 
-                  {/* Tech */}
                   <div className="space-y-3">
                     <p className="text-xs uppercase tracking-widest text-text-muted font-semibold">
                       Tech Stack
@@ -193,7 +209,6 @@ export default async function ProjectDetailPage({
                     </div>
                   </div>
 
-                  {/* Links */}
                   {(project.repoUrl || project.demoUrl) && (
                     <div className="space-y-3">
                       <p className="text-xs uppercase tracking-widest text-text-muted font-semibold">
@@ -224,9 +239,60 @@ export default async function ProjectDetailPage({
                     </div>
                   )}
                 </Panel>
-              </aside>
             </RevealItem>
           </RevealGroup>
+          </aside>
+                  {/* ======================================================
+            PROJECT IMAGES (0–2)
+        ====================================================== */}
+        {images.length > 0 && (
+          <RevealGroup>
+            <RevealItem>
+              <section
+                className="
+                  mt-16
+                  grid gap-6
+                  md:grid-cols-2
+                "
+              >
+                {images.map((image, idx) => (
+                  <div
+                    key={idx}
+                    className="
+                      group relative overflow-hidden rounded-xl
+                      border border-white/10
+                      bg-bg-elevated
+                      transition-transform duration-300
+                      hover:-translate-y-1
+                      hover:shadow-[0_12px_40px_rgba(0,0,0,0.45)]
+                    "
+                  >
+                    <Image
+                      src={image.src}
+                      alt={`${project.title} screenshot ${idx + 1}`}
+                      width={1200}
+                      height={800}
+                      className="w-full h-auto object-cover"
+                    />
+                    <div
+                      className="
+                        pointer-events-none
+                        absolute inset-x-0 bottom-0
+                        bg-gradient-to-t from-black/80 to-black/20
+                        px-4 py-3
+                      "
+                    >
+                      <p className="text-sm text-white/90">
+                        {image.caption}
+                      </p>
+                    </div>
+
+                  </div>
+                ))}
+              </section>
+            </RevealItem>
+          </RevealGroup>
+        )}
         </div>
       </Container>
     </main>

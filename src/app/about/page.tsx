@@ -4,6 +4,7 @@ import { useState } from "react"
 import { BaseBackground } from "@/components/ui/BaseBackground"
 import { Container } from "@/components/ui/Container"
 import { Panel } from "@/components/ui/Panel"
+import Particles from "@/components/ui/Particles"
 
 import {
   Brain,
@@ -15,7 +16,6 @@ import {
 
 import { RevealGroup } from "@/components/motion/RevealGroup"
 import { RevealItem } from "@/components/motion/RevealItem"
-import Particles from "@/components/ui/Particles"
 
 const tabs = ["Vision", "Expertise", "Focus"] as const
 type Tab = typeof tabs[number]
@@ -26,46 +26,47 @@ export default function AboutPage() {
   return (
     <main className="relative pt-32 pb-32 overflow-hidden">
       <BaseBackground />
-            {/* Particles */}
+
+      {/* Particles – locked behind UI */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Particles
-          particleColors={['#3c2277']}
-          particleCount={100}
+          particleColors={["#3c2277"]}
+          particleCount={80}
           particleSpread={10}
-          speed={0.2}
+          speed={0.15}
           particleBaseSize={100}
           moveParticlesOnHover={false}
           alphaParticles
           disableRotation
           pixelRatio={
-            typeof window !== 'undefined'
+            typeof window !== "undefined"
               ? Math.min(window.devicePixelRatio, 1.5)
               : 1
           }
         />
       </div>
-        {/* Glow */}
-        <div
-          aria-hidden
-          className="
-            absolute -top-24 left-1/2 -translate-x-1/2
-            w-[420px] h-[420px]
-            bg-gradient-to-br from-indigo-500/30 via-violet-500/20 to-sky-500/20
-            blur-[140px]
-            rounded-full
-          "
-        />
 
+      {/* Glow */}
+      <div
+        aria-hidden
+        className="
+          absolute -top-24 left-1/2 -translate-x-1/2
+          w-[420px] h-[420px]
+          bg-gradient-to-br from-indigo-500/30 via-violet-500/20 to-sky-500/20
+          blur-[140px]
+          rounded-full
+        "
+      />
 
-      <Container>
+      <Container className="relative z-10">
         <RevealGroup>
           <div className="space-y-12">
 
             {/* ======================================================
-                HEADER CARD
+                HEADER
             ====================================================== */}
             <RevealItem>
-              <Panel className="p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+              <Panel className="p-10 flex flex-col md:flex-row gap-8 bg-black/60 backdrop-blur-xl border border-white/10">
                 <div className="flex items-center gap-5">
                   <div
                     className="
@@ -73,6 +74,7 @@ export default function AboutPage() {
                       bg-gradient-to-br from-indigo-500 to-violet-500
                       flex items-center justify-center
                       text-2xl font-bold text-white
+                      shadow-lg
                     "
                   >
                     SN
@@ -92,7 +94,6 @@ export default function AboutPage() {
                     </div>
                   </div>
                 </div>
-                
               </Panel>
             </RevealItem>
 
@@ -108,8 +109,8 @@ export default function AboutPage() {
                     className={`
                       py-3 rounded-xl text-sm font-medium transition
                       ${active === tab
-                        ? "bg-violet-500/90 text-white"
-                        : "bg-white/5 text-text-secondary hover:bg-white/10"}
+                        ? "bg-violet-500/90 text-white shadow-lg"
+                        : "bg-black/60 border border-white/10 text-text-secondary hover:bg-white/10"}
                     `}
                   >
                     {tab}
@@ -119,31 +120,26 @@ export default function AboutPage() {
             </RevealItem>
 
             {/* ======================================================
-                TAB CONTENT (NO REVEAL ON TAB SWITCH)
+                TAB CONTENT
             ====================================================== */}
             <RevealItem>
-              <Panel className="p-10 min-h-[260px]">
+              <Panel className="p-10 min-h-[260px] bg-black/60 backdrop-blur-xl border border-white/10">
                 {active === "Vision" && (
                   <div className="space-y-6 max-w-[720px]">
-                    <h3 className="text-xl font-medium">
-                      Vision
-                    </h3>
+                    <h3 className="text-xl font-medium">Vision</h3>
 
                     <p className="text-text-secondary leading-relaxed">
-                      I focus on building machine learning systems that survive
-                      contact with reality. That means reproducibility, automation,
-                      observability, and engineering discipline — not just models
-                      that look good in notebooks.
+                      I focus on building production-ready machine learning systems that survive
+                      contact with reality. That means reproducibility, automation, observability,
+                      and engineering discipline across data, backend services, and web interfaces. 
+                      Not just models that look good in notebooks.
                     </p>
 
                     <div className="flex flex-wrap gap-3">
                       {["Production ML", "Reproducibility", "System Design"].map(x => (
                         <span
                           key={x}
-                          className="
-                            px-4 py-1.5 rounded-full text-sm
-                            bg-violet-500/10 text-violet-300
-                          "
+                          className="px-4 py-1.5 rounded-full text-sm bg-violet-500/10 text-violet-300"
                         >
                           {x}
                         </span>
@@ -155,33 +151,31 @@ export default function AboutPage() {
                 {active === "Expertise" && (
                   <div className="grid md:grid-cols-2 gap-6">
                     <ExpertiseCard
-                      icon={<Cpu />}
+                      icon={<Cpu size={20} />}
                       title="ML Systems & MLOps"
-                      text="End-to-end pipelines, automated retraining, versioning, and monitoring."
+                      text="Drift-aware pipelines, evaluation gates, versioning, and controlled deployment."
                     />
                     <ExpertiseCard
-                      icon={<Layers />}
+                      icon={<Layers size={20} />}
                       title="Data & Infrastructure"
                       text="Scalable data flows, containerized services, CI/CD, and cloud-native setups."
                     />
                     <ExpertiseCard
-                      icon={<Brain />}
+                      icon={<Brain size={20} />}
                       title="Applied Machine Learning"
-                      text="Practical modeling choices optimized for stability, not leaderboard scores."
+                      text="Models optimized for stability, interpretability, and operational safety."
                     />
                     <ExpertiseCard
-                      icon={<Sparkles />}
+                      icon={<Sparkles size={20} />}
                       title="Engineering Mindset"
-                      text="Clarity, documentation, and systems that work six months later."
+                      text="Clear interfaces, documentation, and systems that still make sense later."
                     />
                   </div>
                 )}
 
                 {active === "Focus" && (
                   <div className="space-y-6 max-w-[720px]">
-                    <h3 className="text-xl font-medium">
-                      What I focus on
-                    </h3>
+                    <h3 className="text-xl font-medium">What I focus on</h3>
 
                     <ul className="space-y-3 text-text-secondary">
                       {[
@@ -191,10 +185,7 @@ export default function AboutPage() {
                         "Teams that value explanation and clarity"
                       ].map(item => (
                         <li key={item} className="flex gap-3 items-start">
-                          <CheckCircle
-                            className="text-violet-400 mt-0.5"
-                            size={18}
-                          />
+                          <CheckCircle className="text-violet-400 mt-0.5" size={18} />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -205,18 +196,21 @@ export default function AboutPage() {
             </RevealItem>
 
             {/* ======================================================
-                STATS (CASCADE)
+                STATS
             ====================================================== */}
             <RevealGroup>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                  { value: "10+", label: "Production Systems" },
-                  { value: "95%", label: "Iteration Time Reduced" },
-                  { value: "3+", label: "Years Hands-on ML" },
+                  { value: "Automation", label: "by Design" },
+                  { value: "ML", label: "Pipelines" },
+                  { value: "2+", label: "Years Hands-on ML" },
                   { value: "∞", label: "Focus on Reliability" },
                 ].map(stat => (
                   <RevealItem key={stat.label}>
-                    <StatCard value={stat.value} label={stat.label} />
+                    <Panel className="p-6 text-center bg-black/60 backdrop-blur-xl border border-white/10 hover:border-violet-400/40 transition">
+                      <p className="text-3xl font-semibold">{stat.value}</p>
+                      <p className="text-sm text-text-secondary">{stat.label}</p>
+                    </Panel>
                   </RevealItem>
                 ))}
               </div>
@@ -245,29 +239,37 @@ function ExpertiseCard({
   return (
     <div
       className="
-        rounded-xl p-6
-        bg-white/5 border border-white/10
-        space-y-3
+        group relative
+        rounded-2xl
+        bg-black/60 backdrop-blur-xl
+        border border-white/10
+        p-6 space-y-3
+        transition-all duration-300
+        hover:border-violet-400/40
+        hover:shadow-[0_0_30px_rgba(139,92,246,0.25)]
       "
     >
-      <div className="text-violet-400">{icon}</div>
-      <p className="font-medium">{title}</p>
-      <p className="text-sm text-text-secondary">{text}</p>
-    </div>
-  )
-}
+      <div className="h-10 w-10 flex items-center justify-center text-violet-400">
+        <span className="inline-flex transition-transform duration-200 ease-out group-hover:scale-[1.10]">
+          {icon}
+        </span>
+      </div>
 
-function StatCard({
-  value,
-  label
-}: {
-  value: string
-  label: string
-}) {
-  return (
-    <Panel className="p-6 text-center space-y-2">
-      <p className="text-3xl font-semibold">{value}</p>
-      <p className="text-sm text-text-secondary">{label}</p>
-    </Panel>
+
+      <p className="font-medium">{title}</p>
+      <p className="text-sm text-text-secondary leading-relaxed">{text}</p>
+
+      <div
+        aria-hidden
+        className="
+          absolute inset-0 -z-10
+          rounded-2xl
+          bg-[radial-gradient(circle_at_top,rgba(139,92,246,0.25),transparent_70%)]
+          opacity-0 blur-2xl
+          transition-opacity duration-300
+          group-hover:opacity-100
+        "
+      />
+    </div>
   )
 }

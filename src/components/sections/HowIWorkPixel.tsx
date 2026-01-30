@@ -7,8 +7,8 @@ export default function HowIWorkPixel() {
         grid
         grid-cols-1
         xl:grid-cols-3
-        gap-x-24
-        gap-y-28
+        gap-x-1
+        gap-y-20
         justify-items-center
       "
     >
@@ -58,11 +58,12 @@ export default function HowIWorkPixel() {
             "
           >
             <h4 className="text-3xl font-semibold text-white">
-              Architecture
+              Planning & Strategy
             </h4>
             <p className="mt-6 text-base text-white/80 leading-relaxed max-w-[340px]">
-              I design systems around real constraints — scalability,
-              observability and long-term maintainability.
+              We work together to define your objectives, target audience, and core functionality. 
+              This phase focuses on aligning structure, navigation, and content needs to establish a 
+              clear foundation before development begins.
             </p>
           </div>
 
@@ -113,11 +114,12 @@ export default function HowIWorkPixel() {
             "
           >
             <h4 className="text-3xl font-semibold text-white">
-              Build & Automate
+              Development & Progress Updates
             </h4>
             <p className="mt-6 text-base text-white/80 leading-relaxed max-w-[340px]">
-              Clean code, automated pipelines and reproducible ML workflows —
-              engineered for production, not demos.
+              With the plan in place, development starts. I move from early concepts to refined, 
+              production-ready code while providing regular updates so you always have visibility 
+              into progress and decisions.
             </p>
           </div>
 
@@ -145,10 +147,10 @@ export default function HowIWorkPixel() {
                 px-8 py-3
                 rounded-full
                 text-base font-semibold tracking-[0.2em]
-                text-amber-200
-                bg-gradient-to-r from-amber-400/30 to-yellow-300/10
-                border border-amber-300/40
-                shadow-[0_0_35px_rgba(251,191,36,0.45)]
+                text-white/90
+                bg-gradient-to-r from-white/15 to-white/5
+                border border-white/25
+                shadow-[0_0_35px_rgba(255,255,255,0.25)]
               "
             >
               STEP 03
@@ -168,11 +170,12 @@ export default function HowIWorkPixel() {
             "
           >
             <h4 className="text-3xl font-semibold text-white">
-              Operate & Improve
+              Deployment & Launch
             </h4>
             <p className="mt-6 text-base text-white/80 leading-relaxed max-w-[340px]">
-              I monitor drift, performance and failures — then iterate safely
-              based on real production feedback.
+              Once the design is approved, everything is implemented and assembled into a 
+              fully functional website. The solution is built, tested, and prepared for launch 
+              as a complete, production-ready system.
             </p>
           </div>
 

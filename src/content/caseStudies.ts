@@ -14,116 +14,122 @@ export type CaseStudy = {
   stack: string[]
 }
 
-export const caseStudies = [
+export const caseStudies: CaseStudy[] = [
   {
-    slug: "mlops-thesis-project",
-    title: "Building Production ML Systems at Academic Scale",
-    domain: "Machine Learning Infrastructure & Software Engineering",
+    slug: "lightweight-drift-aware-mlops",
+    title: "Drift-Aware Control in Lightweight ML Operations",
+    domain: "Machine Learning Systems · MLOps · Operational Governance",
     summary:
-      "Bachelor thesis project: automated ML pipeline handling real-world constraints. Demonstrates how software engineering principles prevent 80% of ML failures.",
+      "A system-level case study in operational control for machine learning lifecycles. Focuses on how explicit decision structures, governance mechanisms, and lifecycle constraints prevent uncontrolled model evolution in low-infrastructure environments.",
+
     context:
-      "6-month thesis project at University of Oslo. Studied deployment patterns for recommendation systems in e-commerce, working with real production data.",
+      "Batch-oriented ML systems operated by small teams with limited infrastructure, low platform maturity, and minimal organizational separation of roles. Models exist in environments with gradual distributional change, weak operational oversight, and high exposure to undocumented modifications and lifecycle ambiguity.",
+
     problem:
-      "Traditional academic ML workflows don't transfer to production. Thesis question: How can reproducibility and automation reduce ML iteration cycles while maintaining experiment rigor?",
+      "Model lifecycle transitions occur without structural control. Evaluation, retraining, and deployment decisions are weakly formalized, loosely governed, and poorly traceable, creating opaque state changes and making long-term system behavior impossible to audit or explain.",
+
     constraints: [
-      "Real production data with 50M+ events (PII/confidentiality rules)",
-      "Limited cloud budget: $200/month",
-      "Had to work with existing infrastructure (single VM)",
-      "Needed to show improvement over baseline 4-hour manual cycles",
+      "No platform teams or enterprise infrastructure layers",
+      "CI-only execution model with no always-on orchestration",
+      "Offline data processing and batch inference",
+      "Small team capacity and limited operational specialization",
+      "Academic time constraints and fixed delivery scope",
+      "Strong requirements for auditability and reproducibility",
+      "Human-governed decision authority over automation"
     ],
+
     approach: [
-      "Version controlled everything: code, data (via DVC), configs, and models",
-      "Automated pipeline: raw data → features → training → evaluation → deployment decision",
-      "Implemented validation gates: only deploy models beating holdout baseline by 2%+",
-      "Documented decision rationale for every architectural choice (why DVC over Weights & Biases, etc.)",
+      "Introduce explicit control points between experimentation and production states",
+      "Formalize lifecycle transitions as governed decisions rather than pipeline side-effects",
+      "Bind evidence generation to decision authority through structured evaluation gates",
+      "Centralize model state progression through a single promotion boundary",
+      "Prioritize determinism, inspectability, and traceability over execution speed",
+      "Restrict automation to evidence production, not authority delegation",
+      "Design for lifecycle clarity rather than adaptive responsiveness"
     ],
+
     results: [
-      "Achieved 95% reduction in iteration time: 4 hours → 12 minutes",
-      "100% reproducibility across 47 experimental runs (same results when rerun 6 months later)",
-      "Successfully deployed 3 production models with zero training-to-serving inconsistencies",
-      "Created playbook reducing new ML project onboarding from 3 weeks to 3 days",
+      "Model state changes became structurally governed rather than operationally incidental",
+      "Lifecycle transitions became auditable, inspectable, and reproducible",
+      "System behavior shifted from reactive updates to controlled progression",
+      "Failure states became observable instead of silently accumulating",
+      "Operational risk moved from hidden degradation to explicit decision points",
+      "Rollback and forensic analysis became structurally supported"
     ],
+
     learnings: [
-      "MLOps is primarily a software engineering discipline, not ML. Most failures are engineering failures (wrong env variables, stale data, broken dependencies).",
-      "Reproducibility compounds: small discipline early (DVC versioning) prevents debugging nightmares later.",
-      "Automation is force multiplier only if monitoring is baked in. Automated bad pipelines are worse than slow manual ones.",
-      "Documentation of 'why' is undervalued. Future-you (and your team) won't know why you chose Parquet over ORC without it.",
+      "Uncontrolled automation creates systemic risk, not efficiency",
+      "Lifecycle governance is more critical than model performance in low-maturity environments",
+      "Decision structures matter more than tooling sophistication",
+      "Control boundaries reduce complexity more effectively than adaptive logic",
+      "Transparency scales better than autonomy under uncertainty",
+      "Simplicity improves observability and failure diagnosis"
     ],
 
-    stack: ["Python", "DVC", "GitHub Actions", "Docker", "PostgreSQL", "Spark", "TensorFlow"],
-  },
-
-  {
-    slug: "feature-engineering-learnings",
-    title: "When Smart Features Beat Smart Models",
-    domain: "Data Engineering & Model Design",
+    stack: [
+      "Python",
+      "CI-based orchestration",
+      "Versioned artifacts and datasets",
+      "Containerized services",
+      "Drift and evaluation instrumentation"
+    ]
+  }, {
+    slug: "waifare-concert-travel-control",
+    title: "WaiFare: Control Structures for Volatile Mobile Data Systems",
+    domain: "Mobile Systems · Distributed Data · Reliability Engineering",
     summary:
-      "How careful feature engineering outperformed a more complex model. Achieved 2% accuracy gain with simpler inference.",
+      "A mobile system case study focused on controlling volatility, inconsistency, and availability risk in upstream data dependencies through deterministic state management and centralized persistence.",
+
     context:
-      "Worked on recommendation ranking model. Team had invested in GBDT ensemble but performance plateaued at 72% accuracy.",
+      "A client-heavy mobile architecture dependent on multiple external data providers with heterogeneous reliability, rate limits, and update cycles. The system operates over unstable networks, with no control over upstream data quality, availability, or consistency.",
+
     problem:
-      "Added complexity always—more features, bigger ensemble, deeper hyperparameter tuning. Missed the actual bottleneck: feature quality.",
+      "System behavior was dominated by upstream instability: inconsistent responses, transient failures, partial availability, and non-deterministic state. Without structural control, these factors propagate directly to the client layer, producing unpredictable behavior and degraded reliability.",
+
     constraints: [
-      "Model already in production, had to maintain inference latency under 100ms",
-      "Feature store immature: many features were ad-hoc transformations without documentation",
-      "Team skeptical of refactoring vs. just tuning hyperparameters",
+      "Unreliable and rate-limited external APIs",
+      "Intermittent connectivity and offline scenarios",
+      "Client-side execution dominance",
+      "No control over upstream data correctness or freshness",
+      "Early-stage system maturity",
+      "Mobile resource limitations (battery, memory, storage)",
+      "Dependency on third-party availability"
     ],
+
     approach: [
-      "Audited 200+ existing features; found 60 were redundant or sourced incorrectly",
-      "Designed 8 new features from first principles: user engagement velocity, recency decay, item popularity trajectory",
-      "Built feature versioning: traced every feature back to definition and computation logic",
-      "A/B tested new features incrementally; showed gains without re-training full ensemble",
+      "Centralize persistence to prevent fragmented state across client sessions",
+      "Introduce deterministic caching keyed on stable query parameters",
+      "Separate data acquisition from presentation logic",
+      "Treat all upstream data as untrusted by default",
+      "Design explicit fallback and degradation paths",
+      "Isolate volatility through controlled data boundaries",
+      "Favor consistency and predictability over real-time freshness"
     ],
+
     results: [
-      "72% → 74% accuracy with simpler feature set (vs. 72.5% with complex ensemble)",
-      "Inference latency improved 15%: 95ms → 81ms due to fewer features",
-      "Model interpretation improved: stakeholders understood why recommendations changed",
-      "Reduced feature computation time 40%: eliminated redundant calculations",
+      "System behavior became stable under fluctuating upstream conditions",
+      "Client state transitioned from reactive to deterministic",
+      "Failure propagation from APIs was structurally limited",
+      "Cache invalidation and refresh became predictable",
+      "Availability became a managed variable rather than an emergent property",
+      "User-facing instability decreased without increasing system complexity"
     ],
+
     learnings: [
-      "Good features > big models. A simple linear model on great features often beats a complex model on mediocre features.",
-      "Premature optimization kills productivity. Always profile where time/accuracy is actually lost before adding complexity.",
-      "Feature lineage matters. Tracing which upstream data each feature depends on saved hours when data quality issues arose.",
-      "Team communication: showing before/after clearly made the case. Numbers alone don't convince; show the inference speedup too.",
+      "Upstream instability must be treated as a structural assumption, not an exception",
+      "Client reliability depends more on state control than data richness",
+      "Determinism outperforms freshness in volatile environments",
+      "Explicit degradation paths are more reliable than reactive recovery",
+      "Data trust boundaries are architectural, not operational",
+      "Mobile systems require control-first design to remain predictable"
     ],
 
-    stack: ["Python", "Pandas", "Scikit-learn", "GBDT", "SQL"],
-  },
-
-  {
-    slug: "migration-to-cloud",
-    title: "Migrating On-Premise ML to AWS: Lessons from Failure & Recovery",
-    domain: "Infrastructure & Cloud Architecture",
-    summary:
-      "Migration project that initially failed. How we recovered and built a playbook preventing $50k in lost work.",
-    context:
-      "Team ran ML pipelines on local VMs. Business needed global deployment. Migrated to AWS SageMaker + S3.",
-    problem:
-      "Initial migration broke silent assumptions: code assumed local file system, hardcoded paths, implicit ordering of transformations.",
-    constraints: [
-      "Zero downtime requirement: couldn't halt production predictions during migration",
-      "Tight deadline: 6 weeks",
-      "Legacy codebase with minimal testing",
-    ],
-    approach: [
-      "Staged migration: ran AWS and on-prem in parallel for 3 weeks to catch divergence",
-      "Added comprehensive integration tests comparing outputs bit-for-bit",
-      "Documented all implicit assumptions in code (e.g., 'data must be sorted by user ID before aggregation')",
-      "Built monitoring to compare cloud vs. on-prem predictions in real-time",
-    ],
-    results: [
-      "Detected 2 critical bugs in migration that would have gone unnoticed. Saved estimated $50k in bad recommendations.",
-      "Zero-downtime migration: switched traffic with 99.97% prediction consistency",
-      "Reduced cloud costs 35% through rightsizing (found we were over-provisioned)",
-      "Created migration playbook used for 2 subsequent ML system migrations",
-    ],
-    learnings: [
-      "Implicit assumptions are the biggest failure risk. What works locally often silently breaks at scale.",
-      "Testing is not optional for ML systems. You can't eyeball whether a model is correct.",
-      "Monitoring during migration is the safety net. Parallel runs caught 90% of issues before they hit users.",
-      "Never migrate everything at once. Staged, testable migrations are slower initially but 10x more reliable.",
-    ],
-
-    stack: ["AWS SageMaker", "S3", "Lambda", "Python", "Docker", "RDS"],
-  },
+    stack: [
+      "React Native",
+      "TypeScript",
+      "Deterministic caching",
+      "Centralized persistence",
+      "Client-side state control"
+    ]
+  }
 ]
