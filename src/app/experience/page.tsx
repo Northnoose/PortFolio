@@ -142,7 +142,7 @@ export default function ExperiencePage() {
                   subtitle="Mobile-first Event & Travel Planning Platform"
                   icon={<Briefcase size={18} />}
                   color="violet"
-                  badge={{ label: "Product Project", variant: "green" }}
+                  badge={{ label: "Protoype", variant: "green" }}
                   achievements={[
                     "Designed event-centric, end-to-end travel planning UX",
                     "Integrated multi-modal transport aggregation",
