@@ -8,7 +8,6 @@ import { projects } from "@/content/projects"
 import Link from "next/link"
 import TextType from "@/components/ui/TextType"
 import { BaseBackground } from "@/components/ui/BaseBackground"
-import MagicBentoLite, { BentoItem } from "@/components/ui/MagicBentoLite"
 import HowIWorkPixel from "@/components/sections/HowIWorkPixel"
 
 import { Sparkles, Globe, Cpu, Users } from "lucide-react"
@@ -17,36 +16,7 @@ import { HeroSectionHeader } from "@/components/ui/HeroSectionHeader"
 
 import { RevealGroup } from "@/components/motion/RevealGroup"
 import { RevealItem } from "@/components/motion/RevealItem"
-
-const bentoItems = [
-  {
-    title: "Client-First Approach",
-    description: "Building trust through transparent communication and collaboration.",
-    icon: <Users size={22} />,
-    variant: "client",
-    href: "/experience",
-  },
-  {
-    title: "Modern Tech Stack",
-    description: "Technologies and tools I use to build innovative solutions.",
-    icon: <Cpu size={22} />,
-    span: "big",
-    variant: "tech",
-  },
-  {
-    title: "AI-Powered Solutions",
-    description: "Intelligent automation, ML pipelines and LLM integrations.",
-    icon: <Sparkles size={22} />,
-    variant: "ai",
-    href: "/case-studies",
-  },
-  {
-    title: "Available Time Zones",
-    description: "Flexible collaboration across regions and schedules.",
-    icon: <Globe size={22} />,
-    variant: "timezone",
-  },
-] satisfies BentoItem[]
+import HeroBentoGrid from "@/components/sections/HeroBentoGrid"
 
 
 export default function HomePage() {
@@ -181,7 +151,7 @@ export default function HomePage() {
       {/* ======================================================
          WHAT I DO
       ====================================================== */}
-      <section className="relative py-40">
+      <section className="relative py-20">
         <Container>
           <RevealGroup>
             <RevealItem>
@@ -193,7 +163,83 @@ export default function HomePage() {
             </RevealItem>
 
             <RevealItem>
-              <MagicBentoLite items={bentoItems} />
+              <HeroBentoGrid
+                leftTop={{
+                  title: "Client-First Approach",
+                  description:
+                    "Building trust through transparent communication and collaboration.",
+                  icon: <Users size={20} />,
+                  href: "/experience",
+                }}
+
+                leftBottom={{
+                  title: "Available Time Zones",
+                  description:
+                    "Flexible collaboration across regions and schedules.",
+                  icon: <Globe size={20} />,
+                }}
+
+                center={{
+                  title: "Modern Tech Stack",
+                  description:
+                    "Technologies and tools I use to build innovative solutions.",
+                  icon: <Cpu size={20} />,
+                  content: (
+                    <div className="pt-10 space-y-6">
+
+                      {/* Divider */}
+                      <div className="h-px w-full bg-white/10" />
+
+                      {/* Tech grid */}
+                      <div className="grid grid-cols-2 gap-4">
+                        {[
+                          "Next.js",
+                          "React",
+                          "TypeScript",
+                          "JavaScript",
+                          "Python",
+                          "FastAPI",
+                          "Node.js",
+                          "Framer",
+                        ].map(t => (
+                          <div
+                            key={t}
+                            className="
+                              rounded-xl px-4 py-2
+                              text-sm
+                              bg-white/5
+                              border border-white/15
+                              text-white/80
+                              text-center
+                            "
+                          >
+                            {t}
+                          </div>
+                        ))}
+                      </div>
+
+                    </div>
+                  ),
+                }}
+
+                rightTop={{
+                  title: "AI-Powered Solutions",
+                  description:
+                    "Intelligent automation, ML pipelines and LLM integrations.",
+                  icon: <Sparkles size={20} />,
+                  href: "/case-studies",
+                }}
+
+                rightBottom={{
+                  title: "Ready to Collaborate",
+                  description:
+                    "Let’s create something amazing together.",
+                  icon: <Sparkles size={20} />,
+                  href: "#contact",
+                }}
+              />
+
+
             </RevealItem>
           </RevealGroup>
         </Container>
@@ -202,7 +248,7 @@ export default function HomePage() {
       {/* ======================================================
          HOW I WORK
       ====================================================== */}
-      <section className="relative py-40">
+      <section className="relative py-20">
         <RevealGroup>
           <RevealItem>
             <Container>
@@ -225,7 +271,7 @@ export default function HomePage() {
       {/* ======================================================
          PROJECTS
       ====================================================== */}
-      <section className="relative py-40">
+      <section className="relative py-20">
         <Container>
           <RevealGroup>
             <RevealItem>
