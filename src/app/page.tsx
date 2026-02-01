@@ -239,7 +239,7 @@ export default function HomePage() {
                           <div
                             key={t}
                             className="
-                              rounded-xl px-4 py-5
+                              rounded-xl px-4 py-4
                               text-sm
                               bg-white/5
                               border border-white/15
