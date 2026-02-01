@@ -7,7 +7,7 @@ const containerVariants: Variants = {
   show: {
     transition: {
       staggerChildren: 0.18, // 👈 tydelig stegvis nedover
-      delayChildren: 0.2,    // 👈 liten pause før første item
+      delayChildren: 0.05,    // 👈 liten pause før første item
     },
   },
 }
