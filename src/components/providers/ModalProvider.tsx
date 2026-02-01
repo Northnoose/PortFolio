@@ -75,16 +75,25 @@ function GlobalModal({ isOpen, onClose, children }: GlobalModalProps) {
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+        className="absolute inset-0 bg-black/40 transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Modal Content */}
       <div
-        className="relative z-[10000] w-full max-w-3xl mx-4 rounded-2xl max-h-[90vh] overflow-y-auto"
+        className=" relative z-[10000]
+                    w-full
+                    max-w-[95vw]
+                    sm:max-w-[90vw]
+                    md:max-w-4xl
+                    lg:max-w-5xl
+                    mx-4
+                    rounded-2xl
+                    max-h-[90vh]
+                    overflow-y-auto"
         style={{
-          backgroundColor: 'rgb(13, 13, 13)',
+          backgroundColor: 'rgb(0, 0, 0)',
           border: '1px solid rgba(255, 255, 255, 0.08)',
           boxShadow: `
             0 25px 50px -12px rgba(0, 0, 0, 0.6),

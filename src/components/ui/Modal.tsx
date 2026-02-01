@@ -39,10 +39,24 @@ export function Modal({ isOpen, onClose, children, title }: ModalProps) {
       />
 
       {/* Modal */}
-      <div className="fixed inset-0 z-50 overflow-y-auto">
+      <div className="fixed inset-0 z-50">
         <div className="flex min-h-full items-center justify-center p-4">
           <div
-            className="relative w-full max-w-2xl bg-bg-page border border-border-soft rounded-lg shadow-lg"
+            className="
+                        relative
+                        w-full
+                        max-w-[95vw]
+                        sm:max-w-[90vw]
+                        md:max-w-4xl
+                        lg:max-w-5xl
+                        xl:max-w-6xl
+                        max-h-[90vh]
+                        overflow-y-auto
+                        bg-bg-page
+                        border border-border-soft
+                        rounded-xl
+                        shadow-lg
+                      "
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}

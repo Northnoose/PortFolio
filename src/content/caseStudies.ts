@@ -19,51 +19,52 @@ export const caseStudies: CaseStudy[] = [
     slug: "lightweight-drift-aware-mlops",
     title: "Drift-Aware Control in Lightweight ML Operations",
     domain: "Machine Learning Systems · MLOps · Operational Governance",
+
     summary:
-      "A system-level case study in operational control for machine learning lifecycles. Focuses on how explicit decision structures, governance mechanisms, and lifecycle constraints prevent uncontrolled model evolution in low-infrastructure environments.",
+      "A system-level case study on lifecycle control in ML operations, examining how explicit decision structures and governance prevent uncontrolled model evolution in low-infrastructure settings.",
 
     context:
-      "Batch-oriented ML systems operated by small teams with limited infrastructure, low platform maturity, and minimal organizational separation of roles. Models exist in environments with gradual distributional change, weak operational oversight, and high exposure to undocumented modifications and lifecycle ambiguity.",
+      "Batch-based ML systems run by small teams with limited infrastructure, weak role separation, and minimal operational oversight, operating under gradual data drift and high lifecycle ambiguity.",
 
     problem:
-      "Model lifecycle transitions occur without structural control. Evaluation, retraining, and deployment decisions are weakly formalized, loosely governed, and poorly traceable, creating opaque state changes and making long-term system behavior impossible to audit or explain.",
+      "Model evaluation, retraining, and deployment occur without formal governance, resulting in opaque lifecycle transitions, poor traceability, and systems that cannot be reliably audited or explained.",
 
     constraints: [
-      "No platform teams or enterprise infrastructure layers",
-      "CI-only execution model with no always-on orchestration",
+      "No dedicated platform or enterprise infrastructure",
+      "CI-driven execution without persistent orchestration",
       "Offline data processing and batch inference",
-      "Small team capacity and limited operational specialization",
-      "Academic time constraints and fixed delivery scope",
-      "Strong requirements for auditability and reproducibility",
-      "Human-governed decision authority over automation"
+      "Limited team capacity and operational specialization",
+      "Fixed academic scope and time constraints",
+      "Strong auditability and reproducibility requirements",
+      "Human decision authority retained over automation"
     ],
 
     approach: [
-      "Introduce explicit control points between experimentation and production states",
-      "Formalize lifecycle transitions as governed decisions rather than pipeline side-effects",
-      "Bind evidence generation to decision authority through structured evaluation gates",
-      "Centralize model state progression through a single promotion boundary",
-      "Prioritize determinism, inspectability, and traceability over execution speed",
-      "Restrict automation to evidence production, not authority delegation",
-      "Design for lifecycle clarity rather than adaptive responsiveness"
+      "Define explicit control points between experimental and production states",
+      "Treat lifecycle transitions as governed decisions, not pipeline side-effects",
+      "Tie evidence generation to formal evaluation gates",
+      "Centralize model promotion through a single controlled boundary",
+      "Favor determinism, traceability, and inspectability over speed",
+      "Limit automation to evidence production, not decision authority",
+      "Optimize for lifecycle clarity rather than adaptive behavior"
     ],
 
     results: [
-      "Model state changes became structurally governed rather than operationally incidental",
-      "Lifecycle transitions became auditable, inspectable, and reproducible",
+      "Model state changes became explicitly governed",
+      "Lifecycle transitions became auditable and reproducible",
       "System behavior shifted from reactive updates to controlled progression",
-      "Failure states became observable instead of silently accumulating",
-      "Operational risk moved from hidden degradation to explicit decision points",
-      "Rollback and forensic analysis became structurally supported"
+      "Failure states became observable rather than implicit",
+      "Operational risk was surfaced as explicit decisions",
+      "Rollback and forensic analysis were structurally supported"
     ],
 
     learnings: [
-      "Uncontrolled automation creates systemic risk, not efficiency",
-      "Lifecycle governance is more critical than model performance in low-maturity environments",
-      "Decision structures matter more than tooling sophistication",
-      "Control boundaries reduce complexity more effectively than adaptive logic",
+      "Unconstrained automation increases systemic risk",
+      "Lifecycle governance outweighs performance in low-maturity systems",
+      "Decision structure matters more than tooling",
+      "Clear control boundaries reduce operational complexity",
       "Transparency scales better than autonomy under uncertainty",
-      "Simplicity improves observability and failure diagnosis"
+      "Simplicity improves observability and diagnosis"
     ],
 
     stack: [
