@@ -17,6 +17,35 @@ import { HeroSectionHeader } from "@/components/ui/HeroSectionHeader"
 import { RevealGroup } from "@/components/motion/RevealGroup"
 import { RevealItem } from "@/components/motion/RevealItem"
 import HeroBentoGrid from "@/components/sections/HeroBentoGrid"
+import { clsx } from "clsx"
+
+function TimePill({
+  city,
+  tz,
+  grow,
+}: {
+  city: string
+  tz: string
+  grow?: boolean
+}) {
+
+  return (
+    <div
+      className={clsx(
+        "flex items-center justify-between gap-2",
+        "px-4 py-2",
+        "rounded-full",
+        "bg-white/5 border border-white/15",
+        "text-xs text-white/80",
+        grow && "flex-1"
+      )}
+
+    >
+      <span>{city}</span>
+      <span className="text-violet-300 font-medium">{tz}</span>
+    </div>
+  )
+}
 
 
 export default function HomePage() {
@@ -174,9 +203,14 @@ export default function HomePage() {
 
                 leftBottom={{
                   title: "Available Time Zones",
-                  description:
-                    "Flexible collaboration across regions and schedules.",
                   icon: <Globe size={20} />,
+                  content: (
+                    <div className="pt-3 h-full flex flex-col gap-2 min-h-0">
+                      <TimePill city="Oslo" tz="CET" grow />
+                      <TimePill city="London" tz="GMT" grow />
+                      <TimePill city="Istanbul" tz="TRT" grow />
+                    </div>
+                  ),
                 }}
 
                 center={{
@@ -205,7 +239,7 @@ export default function HomePage() {
                           <div
                             key={t}
                             className="
-                              rounded-xl px-4 py-2
+                              rounded-xl px-4 py-5
                               text-sm
                               bg-white/5
                               border border-white/15

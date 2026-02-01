@@ -6,7 +6,7 @@ import React from "react"
 
 export type HeroBentoItem = {
   title: string
-  description: string
+  description?: string
   icon?: React.ReactNode
   href?: string
   content?: React.ReactNode
@@ -35,7 +35,7 @@ export default function HeroBentoGrid({
         className="
           grid
           grid-cols-[1fr_1.25fr_1.5fr]
-          grid-rows-[220px_220px]
+          grid-rows-[260px_260px]
           gap-8
         "
       >
@@ -87,7 +87,8 @@ function HeroCard({
           "transition-all duration-300",
           "group-hover:border-violet-400/40",
           "group-hover:shadow-[0_0_0_1px_rgba(168,85,247,0.35),0_24px_64px_rgba(0,0,0,0.8)]",
-          vertical && "flex flex-col justify-between"
+          vertical && "flex flex-col"
+
         )}
       >
         {/* Inset glow */}
@@ -120,17 +121,28 @@ function HeroCard({
             {item.title}
           </h3>
 
-          <p className="text-white/65 text-sm max-w-[90%]">
-            {item.description}
-          </p>
+          {item.description && (
+            <p className="text-white/65 text-sm max-w-[90%]">
+              {item.description}
+            </p>
+          )}
+
         </div>
 
         {/* Extra content (center only) */}
         {item.content && (
-          <div className="relative z-10 pt-8">
+          <div
+            className={clsx(
+              "relative z-10 flex-1 min-h-0",
+              vertical ? "pt-6" : "pt-4"
+            )}
+          >
             {item.content}
           </div>
         )}
+
+
+
       </div>
     </div>
   )
