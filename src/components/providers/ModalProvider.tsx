@@ -1,9 +1,19 @@
-'use client'
+// ModalProvider.tsx
 
-import { createContext, useContext, useState, useCallback, ReactNode } from 'react'
-import { createPortal } from 'react-dom'
+"use client"
 
-interface ModalContextType {
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react"
+import { createPortal } from "react-dom"
+
+type ModalContextType = {
   openModal: (content: ReactNode, onClose: () => void) => void
   closeModal: () => void
 }
@@ -23,91 +33,92 @@ export function ModalProvider({ children }: { children: ReactNode }) {
 
   const closeModal = useCallback(() => {
     setIsOpen(false)
-    if (onCloseCallback) {
-      onCloseCallback()
-    }
+    if (onCloseCallback) onCloseCallback()
     setModalContent(null)
     setOnCloseCallback(null)
   }, [onCloseCallback])
 
+  const value = useMemo(() => ({ openModal, closeModal }), [openModal, closeModal])
+
   return (
-    <ModalContext.Provider value={{ openModal, closeModal }}>
+    <ModalContext.Provider value={value}>
       {children}
-      {isOpen && createPortal(
-        <GlobalModal isOpen={isOpen} onClose={closeModal}>
-          {modalContent}
-        </GlobalModal>,
-        document.body
-      )}
+      {isOpen &&
+        createPortal(
+          <GlobalModal isOpen={isOpen} onClose={closeModal}>
+            {modalContent}
+          </GlobalModal>,
+          document.body
+        )}
     </ModalContext.Provider>
   )
 }
 
 export function useModal() {
   const context = useContext(ModalContext)
-  if (!context) {
-    throw new Error('useModal must be used within ModalProvider')
-  }
+  if (!context) throw new Error("useModal must be used within ModalProvider")
   return context
 }
 
-interface GlobalModalProps {
+type GlobalModalProps = {
   isOpen: boolean
   onClose: () => void
   children: ReactNode
 }
 
 function GlobalModal({ isOpen, onClose, children }: GlobalModalProps) {
+  useEffect(() => {
+    if (!isOpen) return
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose()
+    }
+
+    document.addEventListener("keydown", onKeyDown)
+    return () => document.removeEventListener("keydown", onKeyDown)
+  }, [isOpen, onClose])
+
+  useEffect(() => {
+    if (!isOpen) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = prev
+    }
+  }, [isOpen])
+
   if (!isOpen) return null
 
-  const handleEscape = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Escape') {
-      onClose()
-    }
-  }
-
   return (
-    <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center"
-      onKeyDown={handleEscape}
-      role="dialog"
-      aria-modal="true"
-    >
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/40 transition-opacity"
+        className="absolute inset-0 bg-black/55 backdrop-blur-[6px]"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Modal Content */}
+      {/* Modal Frame */}
       <div
-        className=" relative z-[10000]
-                    w-full
-                    max-w-[95vw]
-                    sm:max-w-[90vw]
-                    md:max-w-4xl
-                    lg:max-w-5xl
-                    mx-4
-                    rounded-2xl
-                    max-h-[90vh]
-                    overflow-y-auto"
-        style={{
-          backgroundColor: 'rgb(0, 0, 0)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
-          boxShadow: `
-            0 25px 50px -12px rgba(0, 0, 0, 0.6),
-            0 10px 30px -8px rgba(0, 0, 0, 0.4),
-            inset 0 1px 1px 0 rgba(255, 255, 255, 0.08),
-            inset 0 -1px 1px 0 rgba(0, 0, 0, 0.2)
-          `
-        }}
+        className="
+          relative z-[10000]
+          w-full
+          max-w-[95vw]
+          sm:max-w-[92vw]
+          lg:max-w-6xl
+          mx-4
+          rounded-2xl
+          border border-white/10
+          bg-black
+          shadow-[0_25px_50px_-12px_rgba(0,0,0,0.65),0_10px_30px_-8px_rgba(0,0,0,0.45),inset_0_1px_1px_0_rgba(255,255,255,0.07)]
+          max-h-[90vh]
+          overflow-y-auto
+        "
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
       >
-        {/* Content scrolls naturally */}
-        <div>
-          {children}
-        </div>
+        {children}
       </div>
     </div>
   )

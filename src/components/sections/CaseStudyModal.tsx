@@ -1,109 +1,51 @@
-'use client'
+// CaseStudyModal.tsx
 
-import { Modal } from "@/components/ui/Modal"
-import { Tag } from "@/components/ui/Tag"
+"use client"
+
+import { useEffect, useRef } from "react"
 import { CaseStudy } from "@/content/caseStudies"
+import { useModal } from "@/components/providers/ModalProvider"
+import { CaseStudyContent } from "./CaseStudyContent"
 
-interface CaseStudyModalProps {
+
+type CaseStudyModalProps = {
   caseStudy: CaseStudy | null
   isOpen: boolean
   onClose: () => void
 }
 
+/**
+ * Compatibility wrapper: keeps old prop API, but delegates rendering to ModalProvider.
+ * This prevents a second modal system + inconsistent UI.
+ */
 export function CaseStudyModal({ caseStudy, isOpen, onClose }: CaseStudyModalProps) {
-  if (!caseStudy) return null
+  const { openModal, closeModal } = useModal()
+  const openedRef = useRef(false)
 
-  return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="space-y-8">
-        {/* Header */}
-        <div className="space-y-4">
-          <p className="text-sm text-text-muted uppercase tracking-wide">{caseStudy.domain}</p>
-          <h2 className="text-3xl font-medium">{caseStudy.title}</h2>
-          <p className="text-lg text-text-secondary">{caseStudy.summary}</p>
+  useEffect(() => {
+    if (!caseStudy) {
+      // If no case study, ensure modal is closed if it was opened.
+      if (openedRef.current) {
+        closeModal()
+        openedRef.current = false
+      }
+      return
+    }
 
-          {/* Stack Tags */}
-          {caseStudy.stack && caseStudy.stack.length > 0 && (
-            <div className="flex flex-wrap gap-2 pt-2">
-              {caseStudy.stack.map(tech => (
-                <Tag key={tech} label={tech} />
-              ))}
-            </div>
-          )}
-        </div>
+    if (isOpen && !openedRef.current) {
+      openedRef.current = true
+      openModal(<CaseStudyContent caseStudy={caseStudy} />, () => {
+        openedRef.current = false
+        onClose()
+      })
+      return
+    }
 
-        {/* Context */}
-        <div className="space-y-2">
-          <h3 className="text-lg font-medium">Context</h3>
-          <p className="text-text-secondary">{caseStudy.context}</p>
-        </div>
+    if (!isOpen && openedRef.current) {
+      closeModal()
+      openedRef.current = false
+    }
+  }, [caseStudy, isOpen, openModal, closeModal, onClose])
 
-        {/* Problem */}
-        <div className="space-y-2">
-          <h3 className="text-lg font-medium">Problem</h3>
-          <p className="text-text-secondary">{caseStudy.problem}</p>
-        </div>
-
-        {/* Constraints */}
-        {caseStudy.constraints && caseStudy.constraints.length > 0 && (
-          <div className="space-y-3">
-            <h3 className="text-lg font-medium">Constraints</h3>
-            <ul className="space-y-2">
-              {caseStudy.constraints.map((constraint, idx) => (
-                <li key={idx} className="flex gap-3">
-                  <span className="text-text-muted flex-shrink-0">•</span>
-                  <span className="text-text-secondary">{constraint}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Approach */}
-        {caseStudy.approach && caseStudy.approach.length > 0 && (
-          <div className="space-y-3">
-            <h3 className="text-lg font-medium">Approach</h3>
-            <ul className="space-y-2">
-              {caseStudy.approach.map((step, idx) => (
-                <li key={idx} className="flex gap-3">
-                  <span className="text-text-muted flex-shrink-0">→</span>
-                  <span className="text-text-secondary">{step}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Results */}
-        {caseStudy.results && caseStudy.results.length > 0 && (
-          <div className="space-y-3">
-            <h3 className="text-lg font-medium">Results</h3>
-            <ul className="space-y-2">
-              {caseStudy.results.map((result, idx) => (
-                <li key={idx} className="flex gap-3">
-                  <span className="text-text-muted flex-shrink-0">✓</span>
-                  <span className="text-text-secondary">{result}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Learnings */}
-        {caseStudy.learnings && caseStudy.learnings.length > 0 && (
-          <div className="space-y-3">
-            <h3 className="text-lg font-medium">Key Learnings</h3>
-            <ul className="space-y-2">
-              {caseStudy.learnings.map((learning, idx) => (
-                <li key={idx} className="flex gap-3">
-                  <span className="text-text-muted flex-shrink-0">→</span>
-                  <span className="text-text-secondary">{learning}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-    </Modal>
-  )
+  return null
 }
