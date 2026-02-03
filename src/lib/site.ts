@@ -6,5 +6,5 @@ export const site = {
   url: "https://steffennordnes.dev",
   email: "steffen@steffennordnes.dev",
   github: "https://github.com/Northnoose",
-  linkedin: "https://linkedin.com/in/steffen-nordnes",
+  linkedin: "https://www.linkedin.com/in/steffen-nordnes-590625327/",
 }
