@@ -125,21 +125,40 @@ export function Navbar() {
              LEFT — LOGO (VIEWPORT-ANCHORED)
           ====================================================== */}
           <div className="absolute left-4 md:left-6 py-4 md:py-7 z-10">
-            <Link href="/" className="flex items-center gap-3 select-none">
-              <span
-                className="
-                  h-10 w-10
-                  rounded-full
-                  bg-gradient-to-br from-violet-500 to-purple-600
-                  shadow-[0_0_18px_rgba(168,85,247,0.55)]
-                  transition-transform duration-300
-                  hover:scale-105
-                "
-              />
-              <span className="hidden sm:inline text-lg font-semibold text-white tracking-tight">
-                Steffen Nordnes
+            <Link href="/" className="relative select-none">
+              {/* DESKTOP LAYOUT — 100 % uendret */}
+              <span className="hidden sm:flex items-center gap-3">
+                <span
+                  className="
+                    h-10 w-10
+                    rounded-full
+                    bg-gradient-to-br from-violet-500 to-purple-600
+                    shadow-[0_0_18px_rgba(168,85,247,0.55)]
+                    transition-transform duration-300
+                    hover:scale-105
+                  "
+                />
+                <span className="text-lg font-semibold text-white tracking-tight">
+                  Steffen Nordnes
+                </span>
+              </span>
+
+              {/* MOBILE LAYOUT — EGEN FLOW */}
+              <span className="sm:hidden flex items-center gap-3">
+                <span
+                  className="
+                    h-10 w-10
+                    rounded-full
+                    bg-gradient-to-br from-violet-500 to-purple-600
+                    shadow-[0_0_18px_rgba(168,85,247,0.55)]
+                  "
+                />
+                <span className="text-sm font-semibold text-white tracking-tight">
+                  Steffen Nordnes
+                </span>
               </span>
             </Link>
+
           </div>
 
           {/* ======================================================
