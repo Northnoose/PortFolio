@@ -109,7 +109,7 @@ export default function HomePage() {
             particleColors={["#3c2277"]}
             particleCount={isMobile ? 160 : 400}
             particleSpread={10}
-            speed={0.2}
+            speed={0.15}
             particleBaseSize={isMobile ? 70 : 100}
             moveParticlesOnHover={false}
             alphaParticles

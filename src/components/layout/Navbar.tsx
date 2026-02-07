@@ -124,7 +124,7 @@ export function Navbar() {
           {/* ======================================================
              LEFT — LOGO (VIEWPORT-ANCHORED)
           ====================================================== */}
-          <div className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 z-10">
+          <div className="absolute left-4 md:left-6 py-4 md:py-7 z-10">
             <Link href="/" className="flex items-center gap-3 select-none">
               <span
                 className="
@@ -145,7 +145,7 @@ export function Navbar() {
           {/* ======================================================
              RIGHT — CTA (DESKTOP) + MOBILE MENU BUTTON
           ====================================================== */}
-          <div className="absolute right-6 top-1/2 -translate-y-1/2 z-10">
+          <div className="absolute right-6 py-4 md:py-7 z-10">
             <Link
               href="/#contact"
               className="
