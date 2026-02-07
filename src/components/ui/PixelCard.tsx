@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { JSX } from 'react';
+import clsx from "clsx"
 
 
 
@@ -185,6 +186,7 @@ export default function PixelCard({
   const animationRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(null);
   const timePreviousRef = useRef(performance.now());
   const [reducedMotion, setReducedMotion] = useState(false)
+  const [isCoarsePointer, setIsCoarsePointer] = useState(false)
 
   const variantCfg: VariantConfig = VARIANTS[variant] || VARIANTS.default;
   const finalGap = gap ?? variantCfg.gap;
@@ -269,6 +271,17 @@ export default function PixelCard({
   };
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const mq = window.matchMedia('(pointer: coarse)');
+    const update = () => setIsCoarsePointer(mq.matches);
+    update();
+
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)')
   setReducedMotion(media.matches)
     initPixels();
@@ -285,23 +298,27 @@ export default function PixelCard({
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [finalGap, finalSpeed, finalColors, finalNoFocus]);
+  }, [finalGap, finalSpeed, finalColors, finalNoFocus, reducedMotion]);
 
    return (
     <div
       ref={containerRef}
       className={`
         group relative isolate
-        h-[550px] w-[400px]
+        w-full
+        max-w-[400px]
         aspect-[4/5]
+        md:w-[400px]
+        md:h-[550px]
+        md:aspect-auto
         rounded-[28px]
         border border-[#27272a]
         overflow-hidden
         transition-all duration-300
         ${className}
       `}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onMouseEnter={isCoarsePointer ? undefined : onMouseEnter}
+      onMouseLeave={isCoarsePointer ? undefined : onMouseLeave}
       onFocus={finalNoFocus ? undefined : onFocus}
       onBlur={finalNoFocus ? undefined : onBlur}
       tabIndex={finalNoFocus ? -1 : 0}
@@ -313,10 +330,12 @@ export default function PixelCard({
       />
 
       {/* DARK OVERLAY */}
-      <div
-        aria-hidden
-        className="absolute inset-0 z-[1] bg-black/40"
-      />
+      {!isCoarsePointer && (
+        <div
+          aria-hidden
+          className="absolute inset-0 z-[1] bg-black/40"
+        />
+      )}
 
       {/* SAFE ZONE (INGENTING KAN BRYTE DENNE) */}
       <div

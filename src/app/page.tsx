@@ -93,7 +93,7 @@ export default function HomePage() {
       {/* ======================================================
          HERO
       ====================================================== */}
-      <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+      <section className="relative min-h-[100svh] flex items-center justify-center pt-20 overflow-hidden">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Particles
             particleColors={["#3c2277"]}
@@ -113,17 +113,26 @@ export default function HomePage() {
         <Container className="relative z-10">
           <RevealGroup>
             <RevealItem>
-              <div className="relative left-1/2 -translate-x-1/2 w-fit">
+              <div
+                className="
+                  mx-auto
+                  w-full
+                  md:relative md:left-1/2 md:-translate-x-1/2 md:w-fit
+                "
+              >
                 <TextType
                   as="h1"
                   className="
                     block text-center
-                    min-w-[28ch]
-                    text-7xl md:text-8xl font-bold leading-tight
+                    min-w-0 md:min-w-[28ch]
+                    px-2 md:px-0
+                    text-4xl sm:text-5xl md:text-8xl
+                    font-bold leading-tight
                     bg-[linear-gradient(90deg,#ffffff_0%,#d6d6ff_28%,#a78bfa_55%,#60a5fa_100%)]
                     bg-clip-text text-transparent
                     drop-shadow-[0_0_28px_rgba(99,102,241,0.28)]
                   "
+
                   text={[
                     "Hey! My name is Steffen",
                     "Hei! Jeg heter Steffen",
@@ -295,7 +304,12 @@ export default function HomePage() {
           </RevealItem>
 
           <RevealItem>
-            <div className="relative mx-auto mt-24 max-w-[1600px] px-12">
+            <div
+              className="
+                relative mx-auto mt-24 max-w-[1600px]
+                px-6 md:px-12
+              "
+            >
               <HowIWorkPixel />
             </div>
           </RevealItem>

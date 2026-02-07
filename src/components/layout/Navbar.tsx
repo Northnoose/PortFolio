@@ -20,6 +20,7 @@ export function Navbar() {
   const itemRefs = useRef<Record<string, HTMLAnchorElement | null>>({})
   const [dotX, setDotX] = useState(0)
   const [scrollProgress, setScrollProgress] = useState(0)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   /* ======================================================
      ACTIVE DOT POSITION
@@ -36,10 +37,32 @@ export function Navbar() {
 
     const elRect = el.getBoundingClientRect()
     const barRect = bar.getBoundingClientRect()
+    // If the nav bar is not laid out (e.g., hidden on mobile), skip positioning.
+    if (barRect.width === 0 || elRect.width === 0) return
 
     const DOT_OFFSET = 18
     setDotX(elRect.left - barRect.left + DOT_OFFSET)
   }, [pathname])
+
+  /* ======================================================
+     MOBILE MENU: CLOSE ON ROUTE CHANGE
+  ====================================================== */
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [pathname])
+
+  /* ======================================================
+     MOBILE MENU: SCROLL LOCK
+  ====================================================== */
+  useEffect(() => {
+    if (!mobileOpen) return
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = prevOverflow
+    }
+  }, [mobileOpen])
+
 
   /* ======================================================
      SCROLL PROGRESS
@@ -112,7 +135,7 @@ export function Navbar() {
           </div>
 
           {/* ======================================================
-             RIGHT — CTA (VIEWPORT-ANCHORED)
+             RIGHT — CTA (DESKTOP) + MOBILE MENU BUTTON
           ====================================================== */}
           <div className="absolute right-6 top-1/2 -translate-y-1/2 z-10">
             <Link
@@ -133,17 +156,59 @@ export function Navbar() {
             >
               Get in touch
             </Link>
+
+            {/* Mobile hamburger (md- and down) */}
+            <button
+              type="button"
+              className="
+                md:hidden
+                inline-flex items-center justify-center
+                h-11 w-11
+                rounded-xl
+                text-neutral-200
+                hover:text-white
+                transition-colors
+              "
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+              onClick={() => setMobileOpen(v => !v)}
+            >
+              <span className="sr-only">
+                {mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+              </span>
+              <div className="relative h-5 w-6">
+                <span
+                  className={clsx(
+                    "absolute left-0 top-0 h-[2px] w-6 rounded-full bg-current transition-transform duration-200",
+                    mobileOpen && "translate-y-[9px] rotate-45"
+                  )}
+                />
+                <span
+                  className={clsx(
+                    "absolute left-0 top-[9px] h-[2px] w-6 rounded-full bg-current transition-opacity duration-200",
+                    mobileOpen ? "opacity-0" : "opacity-100"
+                  )}
+                />
+                <span
+                  className={clsx(
+                    "absolute left-0 top-[18px] h-[2px] w-6 rounded-full bg-current transition-transform duration-200",
+                    mobileOpen && "translate-y-[-9px] -rotate-45"
+                  )}
+                />
+              </div>
+            </button>
+
           </div>
 
           {/* ======================================================
              CENTER — NAV ITEMS (TRUE CENTER)
           ====================================================== */}
-          <div className="flex justify-center py-6">
+          <div className="flex justify-center py-3 md:py-6">
             <div
               ref={barRef}
               className="
                 relative
-                flex items-center gap-10
+                hidden md:flex items-center gap-10
               "
             >
               {/* Active dot */}
@@ -203,6 +268,82 @@ export function Navbar() {
               })}
             </div>
           </div>
+
+          {/* ======================================================
+             MOBILE MENU PANEL
+          ====================================================== */}
+          {mobileOpen && (
+            <>
+              {/* Backdrop to close menu */}
+              <button
+                type="button"
+                aria-label="Close menu backdrop"
+                className="md:hidden fixed inset-0 z-[54] bg-black/40"
+                onClick={() => setMobileOpen(false)}
+              />
+
+              <nav
+                className="
+                  md:hidden
+                  absolute left-0 right-0 top-full
+                  z-[55]
+                  border-t border-white/10
+                  bg-gradient-to-b
+                  from-[#0c1016]/95
+                  via-[#070a10]/95
+                  to-[#000000]/95
+                  backdrop-blur-xl
+                "
+              >
+                <div className="px-6 py-4">
+                  <div className="flex flex-col gap-2">
+                    {navItems.map(item => {
+                      const active =
+                        item.href === "/"
+                          ? pathname === "/"
+                          : pathname.startsWith(item.href)
+
+                      return (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className={clsx(
+                            "w-full rounded-xl px-4 py-3 text-base font-medium transition-colors",
+                            active
+                              ? "bg-purple-500/15 text-purple-200"
+                              : "text-neutral-200 hover:bg-white/5 hover:text-white"
+                          )}
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          {item.label}
+                        </Link>
+                      )
+                    })}
+                  </div>
+
+                  <div className="mt-4">
+                    <Link
+                      href="/#contact"
+                      className="
+                        inline-flex w-full items-center justify-center
+                        rounded-xl px-4 py-3
+                        text-base font-semibold
+                        text-black
+                        bg-gradient-to-r from-violet-500 to-purple-500
+                        shadow-lg shadow-purple-500/25
+                        transition-all duration-300
+                        hover:brightness-110
+                      "
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      Get in touch
+                    </Link>
+                  </div>
+                </div>
+              </nav>
+            </>
+          )}
+
         </div>
       </header>
     </>

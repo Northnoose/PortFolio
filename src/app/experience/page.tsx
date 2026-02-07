@@ -73,6 +73,7 @@ export default function ExperiencePage() {
           <div
             aria-hidden
             className="
+              hidden md:block
               absolute left-1/2 top-0 h-full w-[2px]
               -translate-x-1/2
               bg-gradient-to-b from-indigo-500/80 via-violet-500/50 to-transparent
@@ -193,9 +194,35 @@ function TimelineItem({
   const isLeft = side === "left"
 
   return (
-    <div className="relative grid grid-cols-[1fr_auto_1fr] items-start">
-      <div className={isLeft ? "pr-12 text-right" : ""}>
-        {isLeft && (
+    <div className="relative">
+      {/* ======================================================
+          MOBILE (BASE): SINGLE COLUMN
+      ====================================================== */}
+      <div className="md:hidden">
+        <div className="flex items-center gap-4 px-2">
+          <div
+            className={`
+             relative z-10 flex items-center justify-center
+             w-10 h-10 rounded-full bg-gradient-to-br
+              ${
+                color === "indigo"
+                  ? "from-indigo-500 to-indigo-400"
+                  : "from-violet-500 to-violet-400"
+              }
+              text-white
+              ${
+                color === "indigo"
+                  ? "shadow-[0_0_0_6px_rgba(99,102,241,0.20)]"
+                  : "shadow-[0_0_0_6px_rgba(168,85,247,0.20)]"
+              }
+            `}
+          >
+            {icon}
+          </div>
+          <p className="text-sm text-text-muted">{date}</p>
+        </div>
+
+        <div className="mt-4">
           <TimelineCard
             title={title}
             subtitle={subtitle}
@@ -203,42 +230,68 @@ function TimelineItem({
             color={color}
             badge={badge}
             achievements={achievements}
+            hideDate
           >
             {children}
           </TimelineCard>
-        )}
-      </div>
-
-      <div className="relative flex justify-center">
-        <div
-          className={`
-            relative z-10 flex items-center justify-center
-            w-10 h-10 rounded-full bg-gradient-to-br
-            ${
-              color === "indigo"
-                ? "from-indigo-500 to-indigo-400"
-                : "from-violet-500 to-violet-400"
-            }
-            text-white shadow-[0_0_0_6px_rgba(99,102,241,0.2)]
-          `}
-        >
-          {icon}
         </div>
       </div>
 
-      <div className={!isLeft ? "pl-12" : ""}>
-        {!isLeft && (
-          <TimelineCard
-            title={title}
-            subtitle={subtitle}
-            date={date}
-            color={color}
-            badge={badge}
-            achievements={achievements}
+      {/* ======================================================
+          DESKTOP (md+): ALTERNATING TWO-SIDED GRID
+      ====================================================== */}
+      <div className="hidden md:grid md:grid-cols-[1fr_auto_1fr] md:items-start">
+        <div className={isLeft ? "pr-12 text-right" : ""}>
+          {isLeft && (
+            <TimelineCard
+              title={title}
+              subtitle={subtitle}
+              date={date}
+              color={color}
+              badge={badge}
+              achievements={achievements}
+            >
+              {children}
+            </TimelineCard>
+          )}
+        </div>
+
+        <div className="relative flex justify-center">
+          <div
+            className={`
+              relative z-10 flex items-center justify-center
+              w-10 h-10 rounded-full bg-gradient-to-br
+              ${
+                color === "indigo"
+                  ? "from-indigo-500 to-indigo-400"
+                  : "from-violet-500 to-violet-400"
+              }
+              text-white
+              ${
+                color === "indigo"
+                  ? "shadow-[0_0_0_6px_rgba(99,102,241,0.20)]"
+                  : "shadow-[0_0_0_6px_rgba(168,85,247,0.20)]"
+              }
+            `}
           >
-            {children}
-          </TimelineCard>
-        )}
+            {icon}
+          </div>
+        </div>
+
+        <div className={!isLeft ? "pl-12" : ""}>
+          {!isLeft && (
+            <TimelineCard
+              title={title}
+              subtitle={subtitle}
+              date={date}
+              color={color}
+              badge={badge}
+              achievements={achievements}
+            >
+              {children}
+            </TimelineCard>
+          )}
+        </div>
       </div>
     </div>
   )
@@ -255,6 +308,7 @@ function TimelineCard({
   badge,
   achievements = [],
   children,
+  hideDate = false,
 }: {
   title: string
   subtitle: string
@@ -266,6 +320,7 @@ function TimelineCard({
   }
   achievements?: string[]
   children: React.ReactNode
+  hideDate?: boolean
 }) {
   const badgeStyles = {
     green: "from-emerald-400 to-emerald-500 text-black",
@@ -274,7 +329,22 @@ function TimelineCard({
   }
 
   return (
-    <div className="group relative max-w-xl rounded-2xl border border-white/10 bg-black/60 backdrop-blur-xl p-8 space-y-6 shadow-[0_0_40px_rgba(0,0,0,0.6)] transition-all duration-300 hover:border-violet-400/40">
+    <div className="group 
+                    relative 
+                    w-full 
+                    max-w-none 
+                    md:max-w-xl 
+                    rounded-2xl 
+                    border 
+                    border-white/10 
+                    bg-black/60 
+                    backdrop-blur-xl 
+                    p-6 md:p-8 
+                    space-y-6 
+                    shadow-[0_0_40px_rgba(0,0,0,0.6)] 
+                    transition-all 
+                    duration-300 
+                    hover:border-violet-400/40">
       <div
         aria-hidden
         className="absolute inset-0 -z-10 rounded-2xl bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.25),transparent_70%)] opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
@@ -303,7 +373,7 @@ function TimelineCard({
         )}
       </div>
 
-      <p className="text-sm text-text-muted">{date}</p>
+      {!hideDate && <p className="text-sm text-text-muted">{date}</p>}
       <p className="text-text-secondary leading-relaxed">{children}</p>
 
       {achievements.length > 0 && (

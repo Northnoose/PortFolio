@@ -34,25 +34,29 @@ export default function HeroBentoGrid({
       <div
         className="
           grid
-          grid-cols-[1fr_1.25fr_1.5fr]
-          grid-rows-[260px_260px]
-          gap-8
+          grid-cols-1
+          auto-rows-auto
+          gap-4
+          sm:gap-6
+          lg:gap-8
+          lg:grid-cols-[1fr_1.25fr_1.5fr]
+          lg:grid-rows-[260px_260px]
         "
       >
         {/* LEFT */}
-        <HeroCard item={leftTop} className="col-start-1 row-start-1" />
-        <HeroCard item={leftBottom} className="col-start-1 row-start-2" />
+        <HeroCard item={leftTop} className="lg:col-start-1 lg:row-start-1" />
+        <HeroCard item={leftBottom} className="lg:col-start-1 lg:row-start-2" />
 
         {/* CENTER (VERTICAL) */}
         <HeroCard
           item={center}
           vertical
-          className="col-start-2 row-start-1 row-span-2"
+          className="lg:col-start-2 lg:row-start-1 lg:row-span-2"
         />
 
         {/* RIGHT (WIDER) */}
-        <HeroCard item={rightTop} className="col-start-3 row-start-1" />
-        <HeroCard item={rightBottom} className="col-start-3 row-start-2" />
+        <HeroCard item={rightTop} className="lg:col-start-3 lg:row-start-1" />
+        <HeroCard item={rightBottom} className="lg:col-start-3 lg:row-start-2" />
       </div>
     </section>
   )
@@ -107,12 +111,14 @@ function HeroCard({
         {/* Header */}
         <div className="relative z-10 space-y-4">
           {item.icon && (
-            <div className="
-              inline-flex items-center justify-center
-              w-10 h-10 rounded-lg
-              bg-white/5 border border-white/10
-              text-white/80
-            ">
+            <div
+              className="
+                inline-flex items-center justify-center
+                w-10 h-10 rounded-lg
+                bg-white/5 border border-white/10
+                text-white/80
+              "
+            >
               {item.icon}
             </div>
           )}
