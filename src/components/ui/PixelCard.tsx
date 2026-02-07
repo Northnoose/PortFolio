@@ -160,6 +160,7 @@ interface PixelCardProps {
   colors?: string;
   noFocus?: boolean;
   className?: string;
+  onActivate?: () => void;
   children: React.ReactNode;
 }
 
@@ -177,6 +178,7 @@ export default function PixelCard({
   speed,
   colors,
   noFocus,
+  onActivate,
   className = '',
   children
 }: PixelCardProps): JSX.Element {
@@ -186,6 +188,7 @@ export default function PixelCard({
   const animationRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(null);
   const timePreviousRef = useRef(performance.now());
   const [reducedMotion, setReducedMotion] = useState(false)
+  const [isActive, setIsActive] = useState(false)
   const [isCoarsePointer, setIsCoarsePointer] = useState(false)
 
   const variantCfg: VariantConfig = VARIANTS[variant] || VARIANTS.default;
@@ -269,6 +272,18 @@ export default function PixelCard({
     if (e.currentTarget.contains(e.relatedTarget)) return;
     handleAnimation('disappear');
   };
+ 
+  const onTap = () => {
+    if (!isCoarsePointer) return;
+    setIsActive(true);
+    onActivate?.();
+    handleAnimation('appear');
+  };
+
+  useEffect(() => {
+    if (!isActive) handleAnimation('disappear');
+  }, [isActive]);
+
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -305,6 +320,7 @@ export default function PixelCard({
       ref={containerRef}
       className={`
         group relative isolate
+        ${isActive ? "is-active" : ""}
         w-full
         max-w-[400px]
         aspect-[4/5]
@@ -313,14 +329,19 @@ export default function PixelCard({
         md:aspect-auto
         rounded-[28px]
         border border-[#27272a]
+        ${isCoarsePointer ? "active:scale-[0.98] transition-transform" : ""}
         overflow-hidden
         transition-all duration-300
         ${className}
       `}
+      role={isCoarsePointer ? "button" : undefined}
+      aria-expanded={isCoarsePointer ? isActive : undefined}
+      aria-pressed={isCoarsePointer ? isActive : undefined}
       onMouseEnter={isCoarsePointer ? undefined : onMouseEnter}
       onMouseLeave={isCoarsePointer ? undefined : onMouseLeave}
       onFocus={finalNoFocus ? undefined : onFocus}
       onBlur={finalNoFocus ? undefined : onBlur}
+      onClick={onTap}
       tabIndex={finalNoFocus ? -1 : 0}
     >
       {/* CANVAS — full bleed */}

@@ -1,6 +1,11 @@
+"use client"
+
+import { useState } from "react"
 import PixelCard from "../ui/PixelCard"
 
 export default function HowIWorkPixel() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
+
   return (
     <div
       className="
@@ -15,7 +20,11 @@ export default function HowIWorkPixel() {
       {/* =============================
           STEP 01
       ============================= */}
-      <PixelCard variant="pink">
+      <PixelCard
+        variant="pink"
+        className={activeIndex === 0 ? "cursor-pointer is-active" : "cursor-pointer"}
+        onActivate={() => setActiveIndex(0)}
+      >
         <div className="relative w-full h-full">
 
           {/* IDLE — STEP BADGE */}
@@ -26,6 +35,8 @@ export default function HowIWorkPixel() {
               transition-all duration-300
               group-hover:opacity-0
               group-hover:scale-90
+              group-[.is-active]:opacity-0
+              group-[.is-active]:scale-90
             "
           >
             <span
@@ -44,7 +55,7 @@ export default function HowIWorkPixel() {
             </span>
           </div>
 
-          {/* HOVER — CONTENT */}
+          {/* ACTIVE — CONTENT */}
           <div
             className="
               absolute inset-0
@@ -55,14 +66,16 @@ export default function HowIWorkPixel() {
               transition-all duration-300 delay-75
               group-hover:opacity-100
               group-hover:translate-y-0
+              group-[.is-active]:opacity-100
+              group-[.is-active]:translate-y-0
             "
           >
             <h4 className="text-3xl font-semibold text-white">
               Planning & Strategy
             </h4>
             <p className="mt-6 text-base text-white/80 leading-relaxed max-w-[340px]">
-              We work together to define your objectives, target audience, and core functionality. 
-              This phase focuses on aligning structure, navigation, and content needs to establish a 
+              We work together to define your objectives, target audience, and core functionality.
+              This phase focuses on aligning structure, navigation, and content needs to establish a
               clear foundation before development begins.
             </p>
           </div>
@@ -73,7 +86,11 @@ export default function HowIWorkPixel() {
       {/* =============================
           STEP 02
       ============================= */}
-      <PixelCard variant="blue">
+      <PixelCard
+        variant="blue"
+        className={activeIndex === 1 ? "cursor-pointer is-active" : "cursor-pointer"}
+        onActivate={() => setActiveIndex(1)}
+      >
         <div className="relative w-full h-full">
 
           <div
@@ -83,6 +100,8 @@ export default function HowIWorkPixel() {
               transition-all duration-300
               group-hover:opacity-0
               group-hover:scale-90
+              group-[.is-active]:opacity-0
+              group-[.is-active]:scale-90
             "
           >
             <span
@@ -111,14 +130,16 @@ export default function HowIWorkPixel() {
               transition-all duration-300 delay-75
               group-hover:opacity-100
               group-hover:translate-y-0
+              group-[.is-active]:opacity-100
+              group-[.is-active]:translate-y-0
             "
           >
             <h4 className="text-3xl font-semibold text-white">
               Development & Progress Updates
             </h4>
             <p className="mt-6 text-base text-white/80 leading-relaxed max-w-[340px]">
-              With the plan in place, development starts. I move from early concepts to refined, 
-              production-ready code while providing regular updates so you always have visibility 
+              With the plan in place, development starts. I move from early concepts to refined,
+              production-ready code while providing regular updates so you always have visibility
               into progress and decisions.
             </p>
           </div>
@@ -129,7 +150,11 @@ export default function HowIWorkPixel() {
       {/* =============================
           STEP 03
       ============================= */}
-      <PixelCard variant="default">
+      <PixelCard
+        variant="default"
+        className={activeIndex === 2 ? "cursor-pointer is-active" : "cursor-pointer"}
+        onActivate={() => setActiveIndex(2)}
+      >
         <div className="relative w-full h-full">
 
           <div
@@ -139,6 +164,8 @@ export default function HowIWorkPixel() {
               transition-all duration-300
               group-hover:opacity-0
               group-hover:scale-90
+              group-[.is-active]:opacity-0
+              group-[.is-active]:scale-90
             "
           >
             <span
@@ -167,15 +194,17 @@ export default function HowIWorkPixel() {
               transition-all duration-300 delay-75
               group-hover:opacity-100
               group-hover:translate-y-0
+              group-[.is-active]:opacity-100
+              group-[.is-active]:translate-y-0
             "
           >
             <h4 className="text-3xl font-semibold text-white">
               Deployment & Launch
             </h4>
             <p className="mt-6 text-base text-white/80 leading-relaxed max-w-[340px]">
-              Once the design is approved, everything is implemented and assembled into a 
-              fully functional website. The solution is built, tested, and prepared for launch 
-              as a complete, production-ready system.
+              Once the design is approved, everything is implemented and assembled into a fully
+              functional website. The solution is built, tested, and prepared for launch as a
+              complete, production-ready system.
             </p>
           </div>
 

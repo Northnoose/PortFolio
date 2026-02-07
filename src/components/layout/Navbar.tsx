@@ -104,6 +104,9 @@ export function Navbar() {
       ====================================================== */}
       <header className="sticky top-0 z-50">
         <div
+          style={{
+            paddingTop: "env(safe-area-inset-top)",
+          }}
           className="
             relative w-full
             backdrop-blur-xl
@@ -139,6 +142,9 @@ export function Navbar() {
           ====================================================== */}
           <div className="absolute right-6 top-1/2 -translate-y-1/2 z-10">
             <Link
+              style={{
+                marginTop: "env(safe-area-inset-top)",
+              }}
               href="/#contact"
               className="
                 hidden md:inline-flex
@@ -172,6 +178,9 @@ export function Navbar() {
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen(v => !v)}
+              style={{
+                marginTop: "env(safe-area-inset-top)",
+              }}
             >
               <span className="sr-only">
                 {mobileOpen ? "Close navigation menu" : "Open navigation menu"}
