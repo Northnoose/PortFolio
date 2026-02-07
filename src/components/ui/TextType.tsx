@@ -46,6 +46,7 @@ const TextType = ({
   ...props
 }: TextTypeProps & React.HTMLAttributes<HTMLElement>) => {
   const [displayedText, setDisplayedText] = useState('');
+  const [hasStarted, setHasStarted] = useState(false);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
@@ -131,6 +132,7 @@ const TextType = ({
             () => {
               setDisplayedText(prev => prev + processedText[currentCharIndex]);
               setCurrentCharIndex(prev => prev + 1);
+              setHasStarted(true);
             },
             variableSpeed ? getRandomSpeed() : typingSpeed
           );
@@ -174,13 +176,18 @@ const TextType = ({
     Component,
     {
       ref: containerRef,
-      className: `inline-block whitespace-pre-wrap tracking-tight ${className}`,
+      className: `  inline-block
+                    whitespace-pre-wrap
+                    tracking-tight
+                    transition-opacity duration-150
+                    ${hasStarted ? "opacity-100" : "opacity-0"}
+                    ${className}`,
       ...props
     },
     <span className="inline" style={{ color: getCurrentTextColor() || 'inherit' }}>
       {displayedText}
     </span>,
-    showCursor && (
+    showCursor && hasStarted && (
       <span
         ref={cursorRef}
         className={`ml-1 inline-block opacity-100 ${shouldHideCursor ? 'hidden' : ''} ${cursorClassName}`}

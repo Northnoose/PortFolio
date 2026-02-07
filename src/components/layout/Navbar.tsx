@@ -104,9 +104,6 @@ export function Navbar() {
       ====================================================== */}
       <header className="sticky top-0 z-50">
         <div
-          style={{
-            paddingTop: "env(safe-area-inset-top)",
-          }}
           className="
             relative w-full
             backdrop-blur-xl
@@ -114,12 +111,20 @@ export function Navbar() {
             from-[#0c1016]/85
             via-[#070a10]/80
             to-[#000000]/85
+            pt-[env(safe-area-inset-top)]
           "
         >
+          {/* NAVBAR HEIGHT CONTAINER */}
+          <div
+            className="
+              relative
+              h-[56px] md:h-auto
+            "
+          >
           {/* ======================================================
              LEFT — LOGO (VIEWPORT-ANCHORED)
           ====================================================== */}
-          <div className="absolute left-6 top-1/2 -translate-y-1/2 z-10">
+          <div className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 z-10">
             <Link href="/" className="flex items-center gap-3 select-none">
               <span
                 className="
@@ -142,9 +147,6 @@ export function Navbar() {
           ====================================================== */}
           <div className="absolute right-6 top-1/2 -translate-y-1/2 z-10">
             <Link
-              style={{
-                marginTop: "env(safe-area-inset-top)",
-              }}
               href="/#contact"
               className="
                 hidden md:inline-flex
@@ -178,9 +180,6 @@ export function Navbar() {
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen(v => !v)}
-              style={{
-                marginTop: "env(safe-area-inset-top)",
-              }}
             >
               <span className="sr-only">
                 {mobileOpen ? "Close navigation menu" : "Open navigation menu"}
@@ -207,6 +206,7 @@ export function Navbar() {
               </div>
             </button>
 
+          </div>
           </div>
 
           {/* ======================================================

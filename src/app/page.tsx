@@ -1,7 +1,6 @@
 "use client"
-
+import { useEffect, useState } from "react"
 import { Container } from "@/components/ui/Container"
-import { useState } from "react"
 import { ProjectsGrid } from "@/components/sections/ProjectsGrid"
 import { Panel } from "@/components/ui/Panel"
 import { projects } from "@/content/projects"
@@ -18,6 +17,8 @@ import { RevealGroup } from "@/components/motion/RevealGroup"
 import { RevealItem } from "@/components/motion/RevealItem"
 import HeroBentoGrid from "@/components/sections/HeroBentoGrid"
 import { clsx } from "clsx"
+
+
 
 function TimePill({
   city,
@@ -49,6 +50,15 @@ function TimePill({
 
 
 export default function HomePage() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)")
+    const update = () => setIsMobile(mq.matches)
+    update()
+    mq.addEventListener("change", update)
+    return () => mq.removeEventListener("change", update)
+  }, [])
   const featuredProjects = projects.filter(p => p.featured)
 
   const [loading, setLoading] = useState(false)
@@ -97,17 +107,20 @@ export default function HomePage() {
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Particles
             particleColors={["#3c2277"]}
-            particleCount={400}
+            particleCount={isMobile ? 160 : 400}
             particleSpread={10}
             speed={0.2}
-            particleBaseSize={100}
+            particleBaseSize={isMobile ? 70 : 100}
             moveParticlesOnHover={false}
             alphaParticles
             disableRotation
-            pixelRatio={typeof window !== "undefined"
-              ? Math.min(window.devicePixelRatio, 1.5)
-              : 1}
+            pixelRatio={
+              typeof window !== "undefined"
+                ? Math.min(window.devicePixelRatio, isMobile ? 1.2 : 1.5)
+                : 1
+            }
           />
+
         </div>
 
         <Container className="relative z-10">
