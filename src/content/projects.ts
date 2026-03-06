@@ -1,3 +1,4 @@
+
 export type Project = {
   slug: string
   title: string
@@ -9,54 +10,58 @@ export type Project = {
   highlights: string[]
 
   images?: {
-  src: string
-  caption: string
+    src: string
+    caption: string
   }[]
-
 
   repoUrl?: string
   demoUrl?: string
 
   featured?: boolean
 }
+
 export const projects: Project[] = [
   {
-  slug: "lightweight-mlops-drift-aware",
-  title: "Lightweight Drift-Aware MLOps Framework",
-  summary:
-    "Lightweight, CI-based MLOps framework that operationalizes data drift as an explicit control signal for evaluation, retraining, and model promotion, with full lifecycle traceability and reproducibility for small teams.",
+    slug: "lightweight-mlops-drift-aware",
+    title: "A Lightweight MLOps Framework for Drift-Aware Model Lifecycle Management",
+    summary:
+      "Bachelor project in progress focused on designing and implementing a lightweight MLOps-inspired framework for controlled model lifecycle management under changing data conditions. The system emphasizes traceability, reproducibility, and explicit decision support for evaluation, retraining, and model promotion, with ongoing implementation progress available in the GitHub repository.",
 
-  tags: [
-    "Python",
-    "MLOps",
-    "Data Drift",
-    "CI/CD",
-    "MLflow",
-    "Docker",
-    "FastAPI",
-    "Evidently",
-    "GitHub Actions",
-  ],
+    tags: [
+      "Python",
+      "MLOps",
+      "Data Drift",
+      "CI/CD",
+      "MLflow",
+      "Docker",
+      "FastAPI",
+      "Evidently",
+      "GitHub Actions",
+      "Scikit-learn",
+    ],
 
-  problem:
-    "Deployed ML models silently degrade under evolving data distributions, while common workflows rely on manual, ad-hoc retraining decisions with weak traceability. Existing MLOps solutions either focus on passive drift monitoring or require enterprise-scale infrastructure, making controlled, auditable lifecycle management inaccessible to small teams.",
+    problem:
+      "Machine learning models in operation can degrade as data distributions change over time, while many workflows still rely on manual or weakly structured retraining and deployment decisions. This creates limited traceability between data versions, training runs, evaluation results, and promotion decisions, and makes controlled lifecycle management difficult for small teams without enterprise-scale infrastructure.",
 
-  solution:
-    "Designed and implemented a lightweight, CI-driven MLOps pipeline where data drift is treated as an explicit decision signal rather than a passive metric. Candidate models are trained and evaluated in isolation, tested under predefined drift scenarios, compared against the active production model, and promoted only through rule-based, auditable decisions with human oversight.",
+    solution:
+      "This project proposes and is implementing a lightweight, CI-based MLOps pipeline for structured lifecycle management of machine learning models. The framework is designed to combine controlled data handling, reproducible training, systematic evaluation, drift analysis, rule-based promotion, deployment, and monitoring in a modular workflow where data drift is used as an explicit decision-support signal rather than as a purely passive monitoring metric.",
 
-  highlights: [
-    "Operationalized data drift as a first-class control signal influencing evaluation, retraining, and model promotion decisions",
-    "CI-based lifecycle orchestration covering training, evaluation, drift analysis, promotion, deployment, and monitoring",
-    "Rule-based promotion gate: models deploy only if predefined performance and robustness criteria are satisfied",
-    "Reproducible experiments: every model linked to dataset version, preprocessing configuration, training parameters, metrics, and drift diagnostics",
-    "Explicit separation between candidate and production models via centralized model registry",
-    "Downstream monitoring used as decision support, not autonomous retraining, preserving transparency and control",
-    "Reference implementation validated through controlled image classification experiments with simulated data drift",
-  ],
+    highlights: [
+      "Modular MLOps-inspired architecture for controlled training, evaluation, promotion, deployment, and monitoring of ML models",
+      "Data drift incorporated as an explicit input to evaluation and promotion logic, with human oversight preserved in lifecycle decisions",
+      "Reproducible pipeline design linking dataset references, preprocessing, training parameters, evaluation results, and model artifacts",
+      "Explicit separation between candidate and production models through versioning, metadata tracking, and centralized registry logic",
+      "CI-based orchestration planned for preprocessing, training, evaluation, drift analysis, and promotion checkpoints",
+      "Task-aware design intended to support both classification and regression workflows through different evaluation and drift analysis components",
+      "Containerized model serving via FastAPI and Docker as part of a lightweight deployment approach for small-team environments",
+      "Controlled experiments with simulated drift are planned to evaluate decision behavior under changing data conditions",
+      "Project scope is intentionally limited to a lightweight reference implementation, not a production-grade enterprise platform",
+      "Implementation is ongoing, and current development progress can be followed in the linked GitHub repository",
+    ],
 
-  repoUrl: "https://github.com/Northnoose/MLOps-CI-Pipeline",
-  featured: true,
-}
+    repoUrl: "https://github.com/Northnoose/MLOps-CI-Pipeline",
+    featured: true,
+  }
 ,
   {
   slug: "waifare",
