@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { Container } from "@/components/ui/Container"
 import { Panel } from "@/components/ui/Panel"
@@ -6,14 +7,44 @@ import { caseStudies } from "@/content/caseStudies"
 import Link from "next/link"
 import { BaseBackground } from "@/components/ui/BaseBackground"
 import {
-  Target,
   AlertTriangle,
   Layers,
-  Route,
   CheckCircle2,
   Lightbulb,
 } from "lucide-react"
 
+
+export function generateStaticParams() {
+  return caseStudies.map((c) => ({ slug: c.slug }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const cs = caseStudies.find((c) => c.slug === slug)
+  if (!cs) return {}
+
+  return {
+    title: cs.title,
+    description: cs.summary,
+    openGraph: {
+      type: "article",
+      url: `/case-studies/${cs.slug}`,
+      title: cs.title,
+      description: cs.summary,
+      images: ["/og.png"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: cs.title,
+      description: cs.summary,
+      images: ["/og.png"],
+    },
+  }
+}
 
 export default async function CaseStudyDetailPage({
   params,

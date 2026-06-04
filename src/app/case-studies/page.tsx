@@ -4,7 +4,7 @@ import { Container } from "@/components/ui/Container"
 import { Panel } from "@/components/ui/Panel"
 import { CaseStudyContent } from "@/components/sections/CaseStudyContent"
 import { caseStudies, CaseStudy } from "@/content/caseStudies"
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { useModal } from "@/components/providers/ModalProvider"
 import { BaseBackground } from "@/components/ui/BaseBackground"
 import Particles from "@/components/ui/Particles"
@@ -14,7 +14,6 @@ import { RevealItem } from "@/components/motion/RevealItem"
 
 export default function CaseStudiesPage() {
   const { openModal } = useModal()
-  const [selectedSlug, setSelectedSlug] = useState<string | null>(null)
 
   /* ======================================================
      HANDLE URL HASH (DEEP LINKING)
@@ -26,14 +25,10 @@ export default function CaseStudiesPage() {
         const slug = hash.split("=")[1]
         const cs = caseStudies.find(c => c.slug === slug)
         if (cs) {
-          setSelectedSlug(slug)
           openModal(<CaseStudyContent caseStudy={cs} />, () => {
-            setSelectedSlug(null)
             window.location.hash = ""
           })
         }
-      } else if (hash === "") {
-        setSelectedSlug(null)
       }
     }
 
@@ -43,10 +38,8 @@ export default function CaseStudiesPage() {
   }, [openModal])
 
   const openCaseStudy = (cs: CaseStudy) => {
-    setSelectedSlug(cs.slug)
-    window.location.hash = `case-study=${cs.slug}`
+    window.location.assign(`#case-study=${cs.slug}`)
     openModal(<CaseStudyContent caseStudy={cs} />, () => {
-      setSelectedSlug(null)
       window.location.hash = ""
     })
   }

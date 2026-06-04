@@ -102,7 +102,7 @@ export const projects: Project[] = [
     },
     {
       src: "/projects/waifare/booking.png",
-      caption: "Booking overview "
+      caption: "Booking overview"
     },
 
   ],

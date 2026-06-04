@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
@@ -12,6 +13,38 @@ import { projects } from "@/content/projects"
 import { RevealGroup } from "@/components/motion/RevealGroup"
 import { RevealItem } from "@/components/motion/RevealItem"
 import Particles from "@/components/ui/Particles"
+
+export function generateStaticParams() {
+  return projects.map((p) => ({ slug: p.slug }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const project = projects.find((p) => p.slug === slug)
+  if (!project) return {}
+
+  return {
+    title: project.title,
+    description: project.summary,
+    openGraph: {
+      type: "article",
+      url: `/projects/${project.slug}`,
+      title: project.title,
+      description: project.summary,
+      images: ["/og.png"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description: project.summary,
+      images: ["/og.png"],
+    },
+  }
+}
 
 export default async function ProjectDetailPage({
   params

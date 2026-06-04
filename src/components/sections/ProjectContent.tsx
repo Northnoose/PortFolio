@@ -1,6 +1,5 @@
 'use client'
 
-import { Tag } from "@/components/ui/Tag"
 import { Project } from "@/content/projects"
 
 interface ProjectContentProps {

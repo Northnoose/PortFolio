@@ -95,12 +95,12 @@ export const caseStudies: CaseStudy[] = [
 
     stack: [
       "Python",
-      "scikit-learn ",
-      "MLflow ",
-      "Evidently ",
+      "scikit-learn",
+      "MLflow",
+      "Evidently",
       "GitHub Actions",
       "Docker",
-      "FastAPI ",
+      "FastAPI",
     ],
 
     impact: {

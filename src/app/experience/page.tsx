@@ -304,7 +304,6 @@ function TimelineCard({
   title,
   subtitle,
   date,
-  color,
   badge,
   achievements = [],
   children,

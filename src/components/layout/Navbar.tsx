@@ -45,11 +45,14 @@ export function Navbar() {
   }, [pathname])
 
   /* ======================================================
-     MOBILE MENU: CLOSE ON ROUTE CHANGE
+     MOBILE MENU: CLOSE ON BROWSER BACK/FORWARD
+     (link clicks close it via their own onClick handlers)
   ====================================================== */
   useEffect(() => {
-    setMobileOpen(false)
-  }, [pathname])
+    const closeOnNav = () => setMobileOpen(false)
+    window.addEventListener("popstate", closeOnNav)
+    return () => window.removeEventListener("popstate", closeOnNav)
+  }, [])
 
   /* ======================================================
      MOBILE MENU: SCROLL LOCK

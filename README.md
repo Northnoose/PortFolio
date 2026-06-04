@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Steffen Nordnes — Portfolio
+
+Personal portfolio site for **Steffen Nordnes**, focused on ML systems & data engineering. Built with Next.js (App Router), TypeScript, and Tailwind CSS, featuring animated bento grids, case studies, and a working contact form.
+
+🔗 **Live:** [steffennordnes.dev](https://steffennordnes.dev)
+
+## Tech Stack
+
+- **Framework:** [Next.js 16](https://nextjs.org) (App Router) + React 19
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4
+- **Animation:** Framer Motion / `motion`, GSAP, OGL (WebGL particles)
+- **Icons:** lucide-react
+- **Email:** nodemailer (contact form via SMTP)
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies and run the dev server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm run start` | Run the production build |
+| `npm run lint` | Run ESLint |
 
-## Learn More
+## Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+The contact form ([`src/app/api/contact/route.ts`](src/app/api/contact/route.ts)) sends email through SMTP. Create a `.env.local` file with:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+SMTP_HOST=your.smtp.host
+SMTP_PORT=587
+SMTP_USER=your-smtp-user
+SMTP_PASS=your-smtp-password
+CONTACT_TO_EMAIL=where-to-receive@example.com
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Without these set, the contact endpoint will fail to send mail.
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+├── app/                  # App Router pages & API routes
+│   ├── about/            # About page
+│   ├── case-studies/     # Case study index + [slug] detail
+│   ├── experience/       # Experience page
+│   ├── projects/         # Projects index + [slug] detail
+│   ├── api/contact/      # Contact form endpoint (nodemailer)
+│   ├── layout.tsx        # Root layout + SEO metadata
+│   ├── sitemap.ts        # Generated sitemap
+│   └── robots.ts         # robots.txt
+├── components/
+│   ├── sections/         # Page sections (hero grid, projects grid, ...)
+│   ├── ui/               # Reusable UI (bento cards, particles, modals, ...)
+│   ├── case-study/       # Case-study-specific components
+│   ├── cards/            # Project cards
+│   ├── motion/           # Page transitions & reveal animations
+│   ├── layout/           # Navbar, layout client wrapper
+│   └── providers/        # Context providers (modal)
+├── content/              # Content data
+│   ├── projects.ts       # Project entries
+│   └── caseStudies.ts    # Case study entries
+├── lib/
+│   ├── site.ts           # Site metadata (name, URLs, social links)
+│   └── utils.ts          # Helpers
+└── styles/               # Design rules / tokens
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Editing Content
+
+- **Site metadata & social links:** [`src/lib/site.ts`](src/lib/site.ts)
+- **Projects:** [`src/content/projects.ts`](src/content/projects.ts)
+- **Case studies:** [`src/content/caseStudies.ts`](src/content/caseStudies.ts)
+
+Project and case-study detail pages are generated dynamically from these files via their `[slug]` routes.
+
+## Deployment
+
+Optimized for [Vercel](https://vercel.com). Push to the connected repo and set the SMTP environment variables in the project settings. See the [Next.js deployment docs](https://nextjs.org/docs/app/building-your-application/deploying) for other targets.

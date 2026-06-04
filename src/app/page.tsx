@@ -76,6 +76,7 @@ export default function HomePage() {
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
       projectType: (form.elements.namedItem("projectType") as HTMLSelectElement).value,
+      company: (form.elements.namedItem("company") as HTMLInputElement).value,
     }
 
     try {
@@ -402,6 +403,28 @@ export default function HomePage() {
           />
 
           <form className="space-y-6 text-left" onSubmit={handleSubmit}>
+
+              {/* Honeypot — hidden from humans, catches spam bots */}
+              <div
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  width: 1,
+                  height: 1,
+                  overflow: "hidden",
+                  left: "-9999px",
+                  top: "-9999px",
+                }}
+              >
+                <label htmlFor="company">Company</label>
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <input

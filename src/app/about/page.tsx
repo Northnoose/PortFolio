@@ -16,6 +16,7 @@ import {
 
 import { RevealGroup } from "@/components/motion/RevealGroup"
 import { RevealItem } from "@/components/motion/RevealItem"
+import LanyardSection from "@/components/reactbits/LanyardSection"
 
 const tabs = ["Vision", "Expertise", "Focus"] as const
 type Tab = typeof tabs[number]
@@ -57,6 +58,11 @@ export default function AboutPage() {
           rounded-full
         "
       />
+
+      {/* Lanyard – spans the full page, in front of the background, behind content */}
+      <div className="absolute inset-0 z-[1] pointer-events-none">
+        <LanyardSection />
+      </div>
 
       <Container className="relative z-10">
         <RevealGroup>
